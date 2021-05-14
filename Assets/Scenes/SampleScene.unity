@@ -342,6 +342,7 @@ MonoBehaviour:
   radiusX: 2
   radiusZ: 2
   length: 12
+  moveInterval: 1
   spherePrefab: {fileID: 7457692328457077725, guid: 4b57174cc6865904784c0147274ee274,
     type: 3}
 --- !u!1 &519420028
