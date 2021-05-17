@@ -27,4 +27,11 @@ public class UI_Manager : MonoBehaviour
         menu.SetActive(true);
     }
 
+    public void OnCancelButtonClicked()
+    {
+
+    }
+
+
+
 }

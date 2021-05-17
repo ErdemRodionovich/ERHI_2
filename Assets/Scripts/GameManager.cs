@@ -8,7 +8,27 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
 {
 
     public class GameManager : Singleton<GameManager>
-    { 
+    {
+
+        private AudioClip soundOfTick;
+        private AudioClip soundOfCircle;
+
+        [SerializeField] private AudioSource audio;
+
+        public Events.Tick OnTick;
+        public GameSettings settings;
+
+        public AudioClip audioOfTick
+        {
+            get { return soundOfTick; }
+            set { soundOfTick = value; }
+        }
+        public AudioClip audioOfCircle
+        {
+            get { return soundOfCircle; }
+            set { soundOfCircle = value; }
+        }
+
 
         #region States
         public enum GameStates
@@ -148,7 +168,8 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
         // Start is called before the first frame update
         void Start()
         {
-            
+            settings = new GameSettings();
+
         }
 
         // Update is called once per frame
@@ -167,6 +188,38 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
         public void TogglePause()
         {
             UpdateState(currentState == GameStates.PAUSED ? GameStates.RUNNING : GameStates.PAUSED);
+        }
+
+        public void Tick()
+        {
+            settings.currentTick++;
+            if(settings.currentCircle == settings.lengthOfCircle)
+            {
+                settings.currentCircle++;
+                settings.currentTick = 0;
+
+                if (settings.playSoundOnCircle)
+                {
+                    audio.PlayOneShot(soundOfCircle);
+                }
+
+            }
+
+            if (settings.vibrateOnClick)
+            {
+                //vibrate
+            }
+
+            if (settings.playSoundOnTick)
+            {
+                audio.PlayOneShot(soundOfTick);
+            }
+
+            if(OnTick != null)
+            {
+                OnTick.Invoke();
+            }
+
         }
 
 
