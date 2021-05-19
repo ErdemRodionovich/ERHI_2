@@ -1095,14 +1095,14 @@ MonoBehaviour:
   m_VerticalScrollbarEventHandler: {fileID: 0}
   m_LayoutGroup: {fileID: 0}
   m_ScrollSensitivity: 1
-  m_ContentType: 0
+  m_ContentType: 2
   m_InputType: 0
   m_AsteriskChar: 42
-  m_KeyboardType: 0
+  m_KeyboardType: 4
   m_LineType: 0
   m_HideMobileInput: 0
   m_HideSoftKeyboard: 0
-  m_CharacterValidation: 0
+  m_CharacterValidation: 2
   m_RegexValue: 
   m_GlobalPointSize: 14
   m_CharacterLimit: 0
@@ -2529,7 +2529,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 471097309}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1674839275}
+        m_MethodName: OnCircleLengthPlusButtonClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &471097309
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4804,7 +4815,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 869284430}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1674839275}
+        m_MethodName: OnBackButtonClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &869284430
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8033,6 +8055,8 @@ MonoBehaviour:
   menu: {fileID: 182766358}
   countText: {fileID: 1294975043}
   cicleText: {fileID: 1216329842}
+  circleLength: {fileID: 292750730}
+  numberOfCircles: {fileID: 0}
 --- !u!1 &1693331962
 GameObject:
   m_ObjectHideFlags: 0
@@ -9127,7 +9151,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1869297603}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1674839275}
+        m_MethodName: OnCircleLengthMinusButtonClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1869297603
 MonoBehaviour:
   m_ObjectHideFlags: 0

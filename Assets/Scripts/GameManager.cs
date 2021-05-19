@@ -182,7 +182,13 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
 
         public void StartGame()
         {
-            
+            settings = new GameSettings();
+            settings.ReadSettings();
+        }
+
+        public void OnApplicationQuit()
+        {
+            settings.SaveSettings();
         }
 
         public void TogglePause()

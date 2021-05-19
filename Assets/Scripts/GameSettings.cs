@@ -66,8 +66,17 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
         public void SaveSettings()
         {
             string settingString = JsonUtility.ToJson(this);
-
+            PlayerPrefs.SetString("Game settings", settingString);
+            PlayerPrefs.Save();
         }
 
+        public void ReadSettings()
+        {
+            if (PlayerPrefs.HasKey("Game settings"))
+            {
+                string settingsString = PlayerPrefs.GetString("Game settings");
+                JsonUtility.FromJsonOverwrite(settingsString, this);
+            }
+        }
     }
 }
