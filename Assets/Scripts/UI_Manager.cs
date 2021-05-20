@@ -16,6 +16,11 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90 {
         [SerializeField] private TMP_InputField circleLength;
         [SerializeField] private TMP_InputField numberOfCircles;
 
+        private void Awake()
+        {
+            GameManager.Instance.OnGameStarted.AddListener(HandleGameStart);
+        }
+
         // Start is called before the first frame update
         void Start()
         {
@@ -28,6 +33,16 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90 {
 
         }
 
+        private void OnEnable()
+        {
+            ReadSettings();
+        }
+
+        private void HandleGameStart()
+        {
+            ReadSettings();
+        }
+
         private void ReadSettings()
         {
             settings = GameManager.Instance.settings;
@@ -37,11 +52,21 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90 {
 
         private void UpdateCircleLengthText()
         {
-            circleLength.text = settings.lengthOfCircle.ToString();
+            if(circleLength == null)
+            {
+                Debug.LogError("circleOfLength is NULL!");
+            }
+
+            if(settings == null)
+            {
+                Debug.LogError("settings is NULL!");
+            }
+            
+            circleLength.SetTextWithoutNotify(settings.lengthOfCircle.ToString());
         }
         private void UpdateNumberOfCirclesText()
         {
-            numberOfCircles.text = settings.countOfCircles.ToString();
+            numberOfCircles.SetTextWithoutNotify(settings.countOfCircles.ToString());
         }
 
         public void OnMenuButtonClicked()
@@ -86,8 +111,33 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90 {
             }
         }
         
+        public void OnNumberOfCirclesMinusButtonClicked()
+        {
+            if(settings.countOfCircles > 1)
+            {
+                settings.countOfCircles--;
+            }
+            UpdateNumberOfCirclesText();
+        }
 
+        public void OnNumberOfCirclesPlusButtonClicked()
+        {
+            settings.countOfCircles++;
+            UpdateNumberOfCirclesText();
+        }
         
+        public void OnNumberOfCirclesValueChanged()
+        {
+            int editedNumberOfCircles = int.Parse(numberOfCircles.text);
+            if(editedNumberOfCircles < 1)
+            {
+                UpdateNumberOfCirclesText();
+            }
+            else
+            {
+                settings.countOfCircles = editedNumberOfCircles;
+            }            
+        }
 
     }
 }

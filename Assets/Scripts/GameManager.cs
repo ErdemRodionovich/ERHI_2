@@ -13,9 +13,11 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
         private AudioClip soundOfTick;
         private AudioClip soundOfCircle;
 
-        [SerializeField] private AudioSource audio;
+        [SerializeField] private AudioSource audioSource;
 
         public Events.Tick OnTick;
+        public Events.GameStarted OnGameStarted;
+
         public GameSettings settings;
 
         public AudioClip audioOfTick
@@ -168,8 +170,13 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
         // Start is called before the first frame update
         void Start()
         {
-            settings = new GameSettings();
+            settings = GameSettings.Instance;
+            settings.ReadSettings();
 
+            if(OnGameStarted != null)
+            {
+                OnGameStarted.Invoke();
+            }
         }
 
         // Update is called once per frame
@@ -182,8 +189,7 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
 
         public void StartGame()
         {
-            settings = new GameSettings();
-            settings.ReadSettings();
+            
         }
 
         public void OnApplicationQuit()
@@ -206,7 +212,7 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
 
                 if (settings.playSoundOnCircle)
                 {
-                    audio.PlayOneShot(soundOfCircle);
+                    audioSource.PlayOneShot(soundOfCircle);
                 }
 
             }
@@ -218,7 +224,7 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
 
             if (settings.playSoundOnTick)
             {
-                audio.PlayOneShot(soundOfTick);
+                audioSource.PlayOneShot(soundOfTick);
             }
 
             if(OnTick != null)
