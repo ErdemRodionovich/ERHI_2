@@ -35,6 +35,11 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
             engDictionary.Add("sample text", "Sample text");
             engDictionary.Add("volume", "Volume");
             engDictionary.Add("sample text for font", "Almost before we knew it, we had left the ground.");
+            engDictionary.Add("circle length", "Circle length");
+            engDictionary.Add("number of circles", "Number of circles");
+            engDictionary.Add("vibrate on click", "Vibrate on click");
+            
+
 
             if (dictionary.ContainsKey(Languages.English))
             {

@@ -8,8 +8,15 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90 {
 
     public class UI_Manager : MonoBehaviour
     {
-        private GameSettings settings;
         private Dictionary<LanguageDictionary.Languages, TMP_Dropdown.OptionData> languageOptions = new Dictionary<LanguageDictionary.Languages, TMP_Dropdown.OptionData>();
+        private int circleLengthValue;
+        private int circlesCount;
+        private bool vibrateOnTick = false;
+        private bool soundOnTick = true;
+        private bool soundOnCircle = true;
+        private string soundOfTickName;
+        private string soundOfCircleName;
+        private LanguageDictionary.Languages language;
 
         [SerializeField] private GameObject menu;
         [SerializeField] private TextMeshProUGUI countText;
@@ -23,15 +30,16 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90 {
         [SerializeField] private TextMeshProUGUI languageCaption;
         [SerializeField] private TMP_Dropdown languageDropdown;
 
+
+
         private void Awake()
         {
-            GameManager.Instance.OnGameStarted.AddListener(HandleGameStart);
+
         }
 
         // Start is called before the first frame update
         void Start()
         {
-            InitLanguageDropdown();
             GameManager.Instance.OnLanguageChanged.AddListener(UpdateTexts);
         }
 
@@ -43,21 +51,27 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90 {
 
         private void OnEnable()
         {
+            InitLanguageDropdown();
             ReadSettings();
         }
 
-        private void HandleGameStart()
-        {
-            ReadSettings();
-        }
 
         private void ReadSettings()
         {
-            settings = GameManager.Instance.settings;
+            circleLengthValue = GameManager.Instance.settings.lengthOfCircle;
+            circlesCount = GameManager.Instance.settings.countOfCircles;
+            vibrateOnTick = GameManager.Instance.settings.vibrateOnClick;
+            soundOnTick = GameManager.Instance.settings.playSoundOnTick;
+            soundOnCircle = GameManager.Instance.settings.playSoundOnCircle;
+            soundOfTickName = GameManager.Instance.settings.audioOfTickName;
+            soundOfCircleName = GameManager.Instance.settings.audioOfCircleName;
+
+            ReadLanguage();
+
             UpdateCircleLengthText();
             UpdateNumberOfCirclesText();
 
-            if (settings.vibrateOnClick)
+            if (vibrateOnTick)
             {
                 vibrateSlider.SetValueWithoutNotify(1.0f);
             }
@@ -67,23 +81,45 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90 {
             }
         }
 
+        private void SaveSettings()
+        {
+            if(circleLengthValue != GameManager.Instance.settings.lengthOfCircle)
+            {
+                GameManager.Instance.settings.lengthOfCircle = circleLengthValue;
+            }
+            if (circlesCount != GameManager.Instance.settings.countOfCircles)
+            {
+                GameManager.Instance.settings.countOfCircles = circlesCount;
+            }
+            if(vibrateOnTick != GameManager.Instance.settings.vibrateOnClick)
+            {
+                GameManager.Instance.settings.vibrateOnClick = vibrateOnTick;
+            }
+            if(soundOnTick != GameManager.Instance.settings.playSoundOnTick)
+            {
+                GameManager.Instance.settings.playSoundOnTick = soundOnTick;
+            }
+            if(soundOnCircle != GameManager.Instance.settings.playSoundOnCircle)
+            {
+                GameManager.Instance.settings.playSoundOnCircle = soundOnCircle;
+            }
+            if(soundOfTickName != GameManager.Instance.settings.audioOfTickName)
+            {
+                GameManager.Instance.settings.audioOfTickName = soundOfTickName;
+            }
+            if(soundOfCircleName != GameManager.Instance.settings.audioOfCircleName)
+            {
+                GameManager.Instance.settings.audioOfCircleName = soundOfCircleName;
+            }
+        }
+
         private void UpdateCircleLengthText()
         {
-            if(circleLength == null)
-            {
-                Debug.LogError("circleOfLength is NULL!");
-            }
-
-            if(settings == null)
-            {
-                Debug.LogError("settings is NULL!");
-            }
-            
-            circleLength.SetTextWithoutNotify(settings.lengthOfCircle.ToString());
+            circleLength.SetTextWithoutNotify(circleLengthValue.ToString());
         }
         private void UpdateNumberOfCirclesText()
         {
-            numberOfCircles.SetTextWithoutNotify(settings.countOfCircles.ToString());
+            numberOfCircles.SetTextWithoutNotify(circlesCount.ToString());
         }
 
         public void OnMenuButtonClicked()
@@ -98,20 +134,21 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90 {
 
         public void OnBackButtonClicked()
         {
+            SaveSettings();
             menu.SetActive(false);
         }
 
         public void OnCircleLengthMinusButtonClicked()
         {
-            if (GameManager.Instance.settings.lengthOfCircle > 1)
+            if (circleLengthValue > 1)
             {
-                GameManager.Instance.settings.lengthOfCircle--;
+                circleLengthValue--;
                 UpdateCircleLengthText();
             }
         }
         public void OnCircleLengthPlusButtonClicked()
         {
-            settings.lengthOfCircle++;
+            circleLengthValue++;
             UpdateCircleLengthText();
         }
 
@@ -124,22 +161,22 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90 {
             }
             else
             {
-                settings.lengthOfCircle = editedCircleLength;
+                circleLengthValue = editedCircleLength;
             }
         }
         
         public void OnNumberOfCirclesMinusButtonClicked()
         {
-            if(settings.countOfCircles > 1)
+            if(circlesCount > 1)
             {
-                settings.countOfCircles--;
+                circlesCount--;
             }
             UpdateNumberOfCirclesText();
         }
 
         public void OnNumberOfCirclesPlusButtonClicked()
         {
-            settings.countOfCircles++;
+            circlesCount++;
             UpdateNumberOfCirclesText();
         }
         
@@ -152,7 +189,7 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90 {
             }
             else
             {
-                settings.countOfCircles = editedNumberOfCircles;
+                circlesCount = editedNumberOfCircles;
             }            
         }
 
@@ -160,19 +197,32 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90 {
         {
             if(vibrateSlider.value == 1.0f)
             {
-                settings.vibrateOnClick = true;
+                vibrateOnTick = true;
             }
             else
             {
-                settings.vibrateOnClick = false;
+                vibrateOnTick = false;
             }
         }
 
         private void ReadLanguage()
         {
+            language = GameManager.Instance.Language;
+
+            if (!languageOptions.ContainsKey(language))
+            {
+                Debug.LogError("language not found! " + language+" count of options: "+languageOptions.Count);
+
+                foreach(KeyValuePair<LanguageDictionary.Languages, TMP_Dropdown.OptionData>keyValue in languageOptions)
+                {
+                    Debug.Log("lang options: " + keyValue.Key + " --- " + keyValue.Value);
+                }
+
+            }
+
             languageDropdown.SetValueWithoutNotify(
                 languageDropdown.options.IndexOf(
-                    languageOptions[GameManager.Instance.Language]
+                    languageOptions[language]
                 )
             );
         }
@@ -196,19 +246,34 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90 {
             languageDropdown.options.Add(rusLanguageOption);
             languageOptions.Add(LanguageDictionary.Languages.Russian, rusLanguageOption);
 
+            Debug.Log("Language dropdown initialized!");
+
         }
 
         public void OnLanguageValueChanged()
         {
+            foreach(KeyValuePair<LanguageDictionary.Languages, TMP_Dropdown.OptionData>keyValue in languageOptions)
+            {
+                if(languageDropdown.options[languageDropdown.value] == keyValue.Value)
+                {
+                    language = keyValue.Key;
+                    break;
+                }
+            }
             UpdateTexts();
         }
 
         private void UpdateTexts()
         {
-            circlelengthCaption.text = GameManager.Instance.Words("circle length");
-            numberOfCriclesCaption.text = GameManager.Instance.Words("number of circles");
-            vibrateOnClickCaption.text = GameManager.Instance.Words("vibrate on click");
-            languageCaption.text = GameManager.Instance.Words("language");
+            circlelengthCaption.text = GameManager.Instance.WordOnLanguage(language, "circle length");
+            numberOfCriclesCaption.text = GameManager.Instance.WordOnLanguage(language, "number of circles");
+            vibrateOnClickCaption.text = GameManager.Instance.WordOnLanguage(language, "vibrate on click");
+            languageCaption.text = GameManager.Instance.WordOnLanguage(language, "language");
+        }
+
+        public void OnPlaySoundOnClickChanged()
+        {
+            //TODO
         }
 
     }

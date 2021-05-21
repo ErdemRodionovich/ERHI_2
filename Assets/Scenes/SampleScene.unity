@@ -7027,7 +7027,18 @@ MonoBehaviour:
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1674839275}
+        m_MethodName: OnLanguageValueChanged
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_AlphaFadeSpeed: 0.15
 --- !u!114 &1427271985
 MonoBehaviour:
@@ -8088,9 +8099,14 @@ MonoBehaviour:
   menu: {fileID: 182766358}
   countText: {fileID: 1294975043}
   cicleText: {fileID: 1216329842}
+  circlelengthCaption: {fileID: 2000403757}
   circleLength: {fileID: 292750730}
+  numberOfCriclesCaption: {fileID: 404089892}
   numberOfCircles: {fileID: 1977176221}
+  vibrateOnClickCaption: {fileID: 1633265738}
   vibrateSlider: {fileID: 684130734}
+  languageCaption: {fileID: 1874901297}
+  languageDropdown: {fileID: 1427271984}
 --- !u!1 &1693331962
 GameObject:
   m_ObjectHideFlags: 0
