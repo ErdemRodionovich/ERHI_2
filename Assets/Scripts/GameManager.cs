@@ -18,7 +18,9 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
         public Events.Tick OnTick;
         public Events.GameStarted OnGameStarted;
 
-        public GameSettings settings;
+        public GameSettings settings {
+            get { return GameSettings.Instance; }
+        }
 
         public AudioClip audioOfTick
         {
@@ -139,7 +141,7 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
         #region Language
 
         private LanguageDictionary languageTranslater = new LanguageDictionary();
-        private LanguageDictionary.Languages currentLanguage;
+        private LanguageDictionary.Languages currentLanguage = LanguageDictionary.Languages.English;
         public LanguageDictionary.Languages Language
         {
             get { return currentLanguage; }
@@ -170,9 +172,6 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
         // Start is called before the first frame update
         void Start()
         {
-            settings = GameSettings.Instance;
-            settings.ReadSettings();
-
             if(OnGameStarted != null)
             {
                 OnGameStarted.Invoke();
@@ -194,7 +193,7 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
 
         public void OnApplicationQuit()
         {
-            settings.SaveSettings();
+            
         }
 
         public void TogglePause()

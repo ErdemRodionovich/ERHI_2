@@ -16,7 +16,7 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
         private bool soundOnCircle = true;
         private string soundOfTickName;
         private string soundOfCircleName;
-
+        
         public int currentTick
         {
             get { return curTick; }
@@ -62,6 +62,12 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
             get { return soundOfCircleName; }
             set { soundOfCircleName = value; }
         }
+        public LanguageDictionary.Languages language
+        {
+            get { return GameManager.Instance.Language; }
+            set { GameManager.Instance.Language = value; }
+        }
+
 
         public void SaveSettings()
         {
@@ -78,5 +84,16 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
                 JsonUtility.FromJsonOverwrite(settingsString, this);
             }
         }
+
+        private void Start()
+        {
+            ReadSettings();
+        }
+
+        private void OnApplicationQuit()
+        {
+            SaveSettings();
+        }
+
     }
 }
