@@ -14,8 +14,8 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
         private bool vibrateOnTick = false;
         private bool soundOnTick = true;
         private bool soundOnCircle = true;
-        private string soundOfTickName;
-        private string soundOfCircleName;
+        private string soundOfTickName = "";
+        private string soundOfCircleName = "";
         
         public int currentTick
         {

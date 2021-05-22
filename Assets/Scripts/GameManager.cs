@@ -12,8 +12,12 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
 
         private AudioClip soundOfTick;
         private AudioClip soundOfCircle;
-
+        
         [SerializeField] private AudioSource audioSource;
+        [SerializeField] private List<AudioClip> playListOnClick;
+        public ProtectedPlayList OnClickPlayList;
+        [SerializeField] private List<AudioClip> playListOnCircle;
+        public ProtectedPlayList OnCirclePlayList;
 
         public Events.Tick OnTick;
         public Events.GameStarted OnGameStarted;
@@ -172,6 +176,9 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
         // Start is called before the first frame update
         void Start()
         {
+            InitOnClickPlayList();
+            InitOnCirclePlayList();
+
             if(OnGameStarted != null)
             {
                 OnGameStarted.Invoke();
@@ -233,6 +240,20 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
 
         }
 
+        private void InitOnClickPlayList()
+        {
+            OnClickPlayList = new ProtectedPlayList(playListOnClick);
+        }
+
+        private void InitOnCirclePlayList()
+        {
+            OnCirclePlayList = new ProtectedPlayList(playListOnCircle);
+        }
+
+        public void PlayAudio(AudioClip clip)
+        {
+            audioSource.PlayOneShot(clip);
+        }
 
     }
 }
