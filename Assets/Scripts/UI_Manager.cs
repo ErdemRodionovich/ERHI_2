@@ -40,6 +40,9 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90 {
         [SerializeField] private TextMeshProUGUI playSoundOnCircleCaption;
         [SerializeField] private TMP_Dropdown soundOnCircleDropdown;
         [SerializeField] private TextMeshProUGUI soundOnCircleCaption;
+        [SerializeField] private TextMeshProUGUI soundOnCircleLabel;
+        [SerializeField] private TextMeshProUGUI soundOnCircleItemLabel;
+        [SerializeField] private TextMeshProUGUI aboutProgramCaption;
 
 
         private void Awake()
@@ -323,12 +326,36 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90 {
             {
                 keyValue.Value.text = GameManager.Instance.WordOnLanguage(language, keyValue.Key);
             }
+            soundOnClickDropdown.RefreshShownValue();
             
-
             foreach(KeyValuePair<string, TMP_Dropdown.OptionData>keyValue in onCircleAudioList)
             {
                 keyValue.Value.text = GameManager.Instance.WordOnLanguage(language, keyValue.Key);
             }
+            soundOnCircleDropdown.RefreshShownValue();
+
+            switch (language)
+            {
+                case LanguageDictionary.Languages.English:
+                    soundOnCircleItemLabel.fontSize = 22.0f;
+                    soundOnCircleLabel.fontSize = 22.0f;
+                    break;
+
+                case LanguageDictionary.Languages.Buryat:
+                    soundOnCircleItemLabel.fontSize = 18.0f;
+                    soundOnCircleLabel.fontSize = 18.0f;
+                    break;
+
+                case LanguageDictionary.Languages.Russian:
+                    soundOnCircleItemLabel.fontSize = 16.0f;
+                    soundOnCircleLabel.fontSize = 16.0f;
+                    break;
+
+                default:
+                    break;
+            }
+
+            aboutProgramCaption.text = GameManager.Instance.WordOnLanguage(language, "about profram");
 
         }
 
@@ -491,6 +518,11 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90 {
                 Debug.LogError("[UI_Manager] Cannot find audio clip in play on circle play list! Option text '"+curOpt.text+"'");
             }
 
+        }
+
+        public void OnAboutProgramButtonClicked()
+        {
+            //TODO
         }
 
     }

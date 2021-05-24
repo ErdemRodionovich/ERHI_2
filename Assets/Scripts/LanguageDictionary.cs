@@ -47,6 +47,7 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
             engDictionary.Add("Short tick", "Short tick");
             engDictionary.Add("Bells down", "Bells down");
             engDictionary.Add("Bells up", "Bells up");
+            engDictionary.Add("about profram", "About program");
 
             if (dictionary.ContainsKey(Languages.English))
             {
@@ -80,6 +81,7 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
             rusDictionary.Add("Short tick", "Клик");
             rusDictionary.Add("Bells down", "Перезвон отдаляющийся");
             rusDictionary.Add("Bells up", "Перезвон приближающийся");
+            rusDictionary.Add("about profram", "О программе");
 
             if (dictionary.ContainsKey(Languages.Russian))
             {
@@ -125,6 +127,7 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
             }
 
             dictionary.Add(Languages.Buryat, burDictionary);
+            burDictionary.Add("about profram", "Энэ программа тухай");
         }
 
         public string Words(Languages language, string keyWord)
