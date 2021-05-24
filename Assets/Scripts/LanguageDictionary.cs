@@ -38,8 +38,15 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
             engDictionary.Add("circle length", "Circle length");
             engDictionary.Add("number of circles", "Number of circles");
             engDictionary.Add("vibrate on click", "Vibrate on click");
-            
-
+            engDictionary.Add("play sound on click", "Play sound on click");
+            engDictionary.Add("sound on click", "Sound on click");
+            engDictionary.Add("sound on circle", "Sound on circle");
+            engDictionary.Add("play sound on circle", "Play sound on circle");
+            engDictionary.Add("Bell ding", "Bell ding");
+            engDictionary.Add("Ding", "Ding");
+            engDictionary.Add("Short tick", "Short tick");
+            engDictionary.Add("Bells down", "Bells down");
+            engDictionary.Add("Bells up", "Bells up");
 
             if (dictionary.ContainsKey(Languages.English))
             {
@@ -61,6 +68,18 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
             rusDictionary.Add("sample text", "Пример текста");
             rusDictionary.Add("volume", "Громкость");
             rusDictionary.Add("sample text for font", "Шифровальщица попросту забыла ряд ключевых множителей и тэгов.");
+            rusDictionary.Add("circle length", "Длина круга");
+            rusDictionary.Add("number of circles", "Количество кругов");
+            rusDictionary.Add("vibrate on click", "Вибрировать на подсчете");
+            rusDictionary.Add("play sound on click", "Озвучивать подсчет");
+            rusDictionary.Add("sound on click", "Звук подсчета");
+            rusDictionary.Add("sound on circle", "Звук при завершении круга");
+            rusDictionary.Add("play sound on circle", "Озвучивать завершение круга");
+            rusDictionary.Add("Bell ding", "Колокол");
+            rusDictionary.Add("Ding", "Колокольчик");
+            rusDictionary.Add("Short tick", "Клик");
+            rusDictionary.Add("Bells down", "Перезвон отдаляющийся");
+            rusDictionary.Add("Bells up", "Перезвон приближающийся");
 
             if (dictionary.ContainsKey(Languages.Russian))
             {
@@ -84,9 +103,21 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
             string burPana = "Yндэр уулын сэсэг шэнги дэлгэржэ, " +
                 "Yри хүүгэдѳѳ үргэжэ, " +
                 "Yндэр наhатай боложо, " +
-                "Сэдьхэн дуулажа жаргагты!";
+                "Сэдьхэн дуулажа жаргагты!";    //hhhhh   үүүүү    ѳѳѳѳѳ
 
             burDictionary.Add("sample text for font", burPana);
+            burDictionary.Add("circle length", "Нэгэ таталгын тоо");
+            burDictionary.Add("number of circles", "Хэды дахин татаха");
+            burDictionary.Add("vibrate on click", "Дорьбодхо татахадаа");
+            burDictionary.Add("play sound on click", "Татахадаа абяа гаргаха");
+            burDictionary.Add("sound on click", "Татаhани абяан");
+            burDictionary.Add("sound on circle", "Нэгэ таталгын дүүрhэни абяан");
+            burDictionary.Add("play sound on circle", "Нэгэ таталгын дүүрхэдэ абяа гаргаха");
+            burDictionary.Add("Bell ding", "Хонхо");
+            burDictionary.Add("Ding", "Заахан хонхо");
+            burDictionary.Add("Short tick", "Тук");
+            burDictionary.Add("Bells down", "Ханхинаан холодоhон");
+            burDictionary.Add("Bells up", "Ханхинаан");
 
             if (dictionary.ContainsKey(Languages.Buryat))
             {
