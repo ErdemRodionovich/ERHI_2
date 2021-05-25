@@ -43,7 +43,7 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90 {
         [SerializeField] private TextMeshProUGUI soundOnCircleLabel;
         [SerializeField] private TextMeshProUGUI soundOnCircleItemLabel;
         [SerializeField] private TextMeshProUGUI aboutProgramCaption;
-
+        [SerializeField] private GameObject aboutGroup;
 
         private void Awake()
         {
@@ -522,7 +522,12 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90 {
 
         public void OnAboutProgramButtonClicked()
         {
-            //TODO
+            aboutGroup.SetActive(true);
+        }
+
+        public void OnBackFromAboutButtonClicked()
+        {
+            aboutGroup.SetActive(false);
         }
 
     }

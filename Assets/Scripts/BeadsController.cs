@@ -6,7 +6,6 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
 {
     public class BeadsController : MonoBehaviour
     {
-        private int curTick = 0;
         private List<GameObject> childSpheres = new List<GameObject>();
         private List<OneBeadController> childBeadsControllers = new List<OneBeadController>();
         private Vector3 center = new Vector3(0, -5, -2);

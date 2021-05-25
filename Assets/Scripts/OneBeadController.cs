@@ -58,6 +58,15 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
                 positionNumber = newPositionNumber;
                 destinationPosition = parentController.getPositionForSphere(newPositionNumber);
             }
+
+            if(prevPositionNumber == 0)
+            {
+                if(GameManager.Instance.OnTick != null)
+                {
+                    GameManager.Instance.OnTick.Invoke();
+                }
+            }
+
         }
 
         public void Init(BeadsController parentController, int number, int positionNumber)
