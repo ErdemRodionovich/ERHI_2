@@ -23,7 +23,7 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90 {
 
         [SerializeField] private GameObject menu;
         [SerializeField] private TextMeshProUGUI countText;
-        [SerializeField] private TextMeshProUGUI cicleText;
+        [SerializeField] private TextMeshProUGUI circleText;
         [SerializeField] private TextMeshProUGUI circlelengthCaption;
         [SerializeField] private TMP_InputField circleLength;
         [SerializeField] private TextMeshProUGUI numberOfCriclesCaption;
@@ -55,6 +55,7 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90 {
         {
             GameManager.Instance.OnLanguageChanged.AddListener(UpdateTexts);
             GameManager.Instance.OnGameStarted.AddListener(HandleGameStart);
+            GameManager.Instance.OnTick.AddListener(HandleTick);
         }
 
         // Update is called once per frame
@@ -159,6 +160,10 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90 {
             }
 
             GameManager.Instance.settings.SaveSettings();
+            if(GameManager.Instance.settings.OnSettingsChanged != null)
+            {
+                GameManager.Instance.settings.OnSettingsChanged.Invoke();
+            }
 
         }
 
@@ -178,7 +183,7 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90 {
 
         public void OnCancelButtonClicked()
         {
-
+            GameManager.Instance.CancelTick();
         }
 
         public void OnBackButtonClicked()
@@ -528,6 +533,12 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90 {
         public void OnBackFromAboutButtonClicked()
         {
             aboutGroup.SetActive(false);
+        }
+
+        private void HandleTick()
+        {
+            countText.text = GameManager.Instance.settings.currentTick.ToString();
+            circleText.text = GameManager.Instance.settings.currentCircle.ToString();
         }
 
     }

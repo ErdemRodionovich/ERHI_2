@@ -30,7 +30,16 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
         public int lengthOfCircle
         {
             get { return circleLength; }
-            set { circleLength = value; }
+            set { 
+                if(circleLength != value)
+                {
+                    if(OnCircleLengthChanged != null)
+                    {
+                        OnCircleLengthChanged.Invoke();
+                    }
+                }
+                circleLength = value;
+            }
         }
         public int countOfCircles
         {
@@ -68,6 +77,8 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
             set { GameManager.Instance.Language = value; }
         }
 
+        public Events.GameSettingChanged OnSettingsChanged = new Events.GameSettingChanged();
+        public Events.CircleLengthChanged OnCircleLengthChanged = new Events.CircleLengthChanged();
 
         public void SaveSettings()
         {
@@ -82,12 +93,18 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
             {
                 string settingsString = PlayerPrefs.GetString("Game settings");
                 JsonUtility.FromJsonOverwrite(settingsString, this);
+
+                if(OnSettingsChanged != null)
+                {
+                    OnSettingsChanged.Invoke();
+                }
+
             }
         }
 
         private void Start()
         {
-            ReadSettings();
+            
         }
 
         private void OnApplicationQuit()

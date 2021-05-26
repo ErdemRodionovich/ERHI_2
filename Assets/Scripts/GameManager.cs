@@ -19,8 +19,8 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
         [SerializeField] private List<AudioClip> playListOnCircle;
         public ProtectedPlayList OnCirclePlayList;
 
-        public Events.Tick OnTick;
-        public Events.GameStarted OnGameStarted;
+        public Events.Tick OnTick = new Events.Tick();
+        public Events.GameStarted OnGameStarted = new Events.GameStarted();
 
         public GameSettings settings {
             get { return GameSettings.Instance; }
@@ -51,7 +51,7 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
         {
             get { return currentState; }
         }
-        public Events.GameStateChangedEvent OnStateChanged;
+        public Events.GameStateChangedEvent OnStateChanged = new Events.GameStateChangedEvent();
 
         private void UpdateState(GameStates newState)
         {
@@ -157,7 +157,7 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
             }
         }
 
-        public Events.LanguageChanged OnLanguageChanged;
+        public Events.LanguageChanged OnLanguageChanged = new Events.LanguageChanged();
 
         public string Words(string keyWord)
         {
@@ -178,6 +178,8 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
         {
             InitOnClickPlayList();
             InitOnCirclePlayList();
+            settings.OnSettingsChanged.AddListener(HandleSettingsChange);
+            settings.ReadSettings();
 
             if(OnGameStarted != null)
             {
@@ -211,7 +213,7 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
         public void Tick()
         {
             settings.currentTick++;
-            if(settings.currentCircle == settings.lengthOfCircle)
+            if(settings.currentTick == settings.lengthOfCircle)
             {
                 settings.currentCircle++;
                 settings.currentTick = 0;
@@ -240,6 +242,36 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
 
         }
 
+        public void CancelTick()
+        {
+            if(settings.currentTick > 0)
+            {
+                settings.currentTick--;
+                if (settings.playSoundOnTick)
+                {
+                    audioSource.PlayOneShot(soundOfTick);
+                }
+            }
+            else
+            {
+                if(settings.currentCircle > 0 && settings.lengthOfCircle > 0)
+                {
+                    settings.currentCircle--;
+                    settings.currentTick = settings.lengthOfCircle - 1;
+                    if (settings.playSoundOnCircle)
+                    {
+                        audioSource.PlayOneShot(soundOfCircle);
+                    }
+                }
+            }
+
+            if(OnTick != null)
+            {
+                OnTick.Invoke();
+            }
+
+        }
+
         private void InitOnClickPlayList()
         {
             OnClickPlayList = new ProtectedPlayList(playListOnClick);
@@ -253,6 +285,12 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
         public void PlayAudio(AudioClip clip)
         {
             audioSource.PlayOneShot(clip);
+        }
+
+        private void HandleSettingsChange()
+        {
+            soundOfTick = OnClickPlayList.GetAudioByName(settings.audioOfTickName);
+            soundOfCircle = OnCirclePlayList.GetAudioByName(settings.audioOfCircleName);
         }
 
     }

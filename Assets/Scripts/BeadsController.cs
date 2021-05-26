@@ -14,17 +14,18 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
         private bool tickCourutineIsRunning = false;
         
 
-        public float radiusY = 5.0f;
-        public float radiusX = 2.0f;
-        public float radiusZ = 2.0f;
-        public int length = 12;
-        public float moveInterval = 13.0f;
+        private float radiusY = 5.0f;
+        private float radiusX = 2.0f;
+        private float radiusZ = 2.0f;
+        private int length = 12;
+        private float moveInterval = 13.0f;
 
         public GameObject spherePrefab;
 
         // Start is called before the first frame update
         void Start()
         {
+            GameManager.Instance.settings.OnCircleLengthChanged.AddListener(HandleCircleLengthChange);
             InitBeads();
         }
 
@@ -176,6 +177,14 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
 
             return getPositionByAngle(currentAngle);
 
+        }
+
+        private void HandleCircleLengthChange()
+        {
+            //TODO
+            //Resize beads
+
+            
         }
 
     }
