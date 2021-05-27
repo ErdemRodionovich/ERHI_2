@@ -22,6 +22,8 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90 {
         private Dictionary<string, TMP_Dropdown.OptionData> onCircleAudioList = new Dictionary<string, TMP_Dropdown.OptionData>();
 
         [SerializeField] private GameObject menu;
+        [SerializeField] private TextMeshProUGUI menuCaption;
+        [SerializeField] private TextMeshProUGUI cancelCaption;
         [SerializeField] private TextMeshProUGUI countText;
         [SerializeField] private TextMeshProUGUI circleText;
         [SerializeField] private TextMeshProUGUI circlelengthCaption;
@@ -326,6 +328,8 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90 {
             soundOnClickCaption.text = GameManager.Instance.WordOnLanguage(language, "sound on click");
             soundOnCircleCaption.text = GameManager.Instance.WordOnLanguage(language, "sound on circle");
             playSoundOnCircleCaption.text = GameManager.Instance.WordOnLanguage(language, "play sound on circle");
+            menuCaption.text = GameManager.Instance.WordOnLanguage(language, "menu");
+            cancelCaption.text = GameManager.Instance.WordOnLanguage(language, "cancel");
 
             foreach(KeyValuePair<string, TMP_Dropdown.OptionData>keyValue in onClickAudioList)
             {

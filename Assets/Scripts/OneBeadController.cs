@@ -71,6 +71,9 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
             this.parentController = parentController;
             this.number = number;
             this.positionNumber = positionNumber;
+            stateOfBead = allStates.Peace;
+            walkToPositions.Clear();
+            stepOfMoving = 0;
         }
 
         private void WalkToNextStep()

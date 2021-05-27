@@ -14,19 +14,23 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
         private bool tickCourutineIsRunning = false;
         
 
-        private float radiusY = 5.0f;
-        private float radiusX = 2.0f;
-        private float radiusZ = 2.0f;
+        private float radiusY = 1.0f;
+        private float radiusX = 1.0f;
+        private float radiusZ = 1.0f;
         private int length = 12;
-        private float moveInterval = 13.0f;
+        private float moveInterval = 0.3f;
 
         public GameObject spherePrefab;
+
+        private void Awake()
+        {
+            GameManager.Instance.OnGameStarted.AddListener(InitBeads);
+        }
 
         // Start is called before the first frame update
         void Start()
         {
-            GameManager.Instance.settings.OnCircleLengthChanged.AddListener(HandleCircleLengthChange);
-            InitBeads();
+            GameManager.Instance.settings.OnCircleLengthChanged.AddListener(HandleCircleLengthChange);            
         }
 
         // Update is called once per frame
@@ -62,18 +66,40 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
 
         private void InitBeads()
         {
+            length = GameManager.Instance.settings.lengthOfCircle;
             checkRadiuses();
             calculateCenter();
-
+            childBeadsControllers.Clear();
+            
             for (int i = 0; i < length; i++)
             {
                 Vector3 positionOfSphere = getPositionForSphere(i);
-                GameObject sphere = Instantiate(spherePrefab, positionOfSphere, spherePrefab.transform.rotation, transform);
-                childSpheres.Add(sphere);
+                GameObject sphere;
+
+                if (childSpheres.Count <= i)
+                {
+                    sphere = Instantiate(spherePrefab, positionOfSphere, spherePrefab.transform.rotation, transform);
+                    childSpheres.Add(sphere);
+                }
+                else
+                {
+                    sphere = childSpheres[i];
+                    sphere.SetActive(true);
+                    sphere.transform.Translate(positionOfSphere - sphere.transform.position);
+                }
                 OneBeadController childBeadController = sphere.GetComponent<OneBeadController>();
                 childBeadsControllers.Add(childBeadController);
                 childBeadController.Init(this, i, i);
             }
+
+            if(childSpheres.Count > length)
+            {
+                for(int i = length; i < childSpheres.Count; i++)
+                {
+                    childSpheres[i].SetActive(false);
+                }
+            }
+
         }
 
         private void checkRadiuses()

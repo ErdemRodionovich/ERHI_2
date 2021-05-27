@@ -227,7 +227,7 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
 
             if (settings.vibrateOnClick)
             {
-                //vibrate
+                Handheld.Vibrate();
             }
 
             if (settings.playSoundOnTick)

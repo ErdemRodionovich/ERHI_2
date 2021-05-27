@@ -2237,11 +2237,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20a028ca083606d4b8ab29b026ca4c66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radiusY: 2
-  radiusX: 2
-  radiusZ: 2
-  length: 12
-  moveInterval: 0.1
   spherePrefab: {fileID: 7457692328457077725, guid: 4b57174cc6865904784c0147274ee274,
     type: 3}
 --- !u!1 &404089890
@@ -8778,6 +8773,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menu: {fileID: 182766358}
+  menuCaption: {fileID: 1115536543}
+  cancelCaption: {fileID: 420693867}
   countText: {fileID: 1294975043}
   circleText: {fileID: 1216329842}
   circlelengthCaption: {fileID: 2000403757}
