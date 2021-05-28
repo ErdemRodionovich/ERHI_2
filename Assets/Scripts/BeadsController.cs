@@ -207,10 +207,64 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
 
         private void HandleCircleLengthChange()
         {
-            //TODO
-            //Resize beads
+            ResizeBeads();            
+        }
 
-            
+        private void ResizeBeads()
+        {
+            int lengthBefore = length;
+            length = GameManager.Instance.settings.lengthOfCircle;
+            checkRadiuses();
+            calculateCenter();
+
+            if (GameManager.Instance.settings.lengthOfCircle > lengthBefore)
+            {
+                AddNewBeads(lengthBefore);
+            }
+            else
+            {
+                HideSomeBeads();
+            }
+        }
+
+        private void AddNewBeads(int lengthBefore)
+        {
+            for(int i = lengthBefore; i < length; i++)
+            {
+                GameObject sphere = null;
+                if(childSpheres.Count <= i)
+                {
+                    sphere = CreateAndInitNewBead(i);
+                }
+                else
+                {
+                    sphere = childSpheres[i];
+                    sphere.SetActive(true);
+                    sphere.transform.Translate(getPositionForSphere(i) - sphere.transform.position);
+                    OneBeadController childController = sphere.GetComponent<OneBeadController>();
+                    childController.Init(this, i, i);
+                    childBeadsControllers.Add(childController);
+                }
+            }
+        }
+
+        private GameObject CreateAndInitNewBead(int number)
+        {
+            GameObject sphere = Instantiate(spherePrefab, getPositionForSphere(number), spherePrefab.transform.rotation, transform);
+            sphere.SetActive(true);
+            childSpheres.Add(sphere);
+            OneBeadController childController = sphere.GetComponent<OneBeadController>();
+            childController.Init(this, number, number);
+            childBeadsControllers.Add(childController);
+            return sphere;
+        }
+
+        private void HideSomeBeads()
+        {
+            for(int i = length; i < childSpheres.Count; i++)
+            {
+                //TODO: find gameobject by childBeadsControllers
+            }
         }
 
     }
