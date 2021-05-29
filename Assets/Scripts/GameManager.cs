@@ -21,6 +21,7 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
 
         public Events.Tick OnTick = new Events.Tick();
         public Events.GameStarted OnGameStarted = new Events.GameStarted();
+        public Events.ClickForTick OnClickForTick = new Events.ClickForTick();
 
         public GameSettings settings {
             get { return GameSettings.Instance; }
@@ -213,7 +214,7 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
         public void Tick()
         {
             settings.currentTick++;
-            if(settings.currentTick == settings.lengthOfCircle)
+            if(settings.currentTick >= settings.lengthOfCircle)
             {
                 settings.currentCircle++;
                 settings.currentTick = 0;

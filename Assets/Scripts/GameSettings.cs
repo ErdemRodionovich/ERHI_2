@@ -33,12 +33,12 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
             set { 
                 if(circleLength != value)
                 {
-                    if(OnCircleLengthChanged != null)
+                    circleLength = value;
+                    if (OnCircleLengthChanged != null)
                     {
                         OnCircleLengthChanged.Invoke();
                     }
-                }
-                circleLength = value;
+                }                
             }
         }
         public int countOfCircles

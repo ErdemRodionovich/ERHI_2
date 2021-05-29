@@ -6,18 +6,20 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
 {
     public class OneBeadController : MonoBehaviour
     {
-        private enum allStates { Peace, Moving };
+        public enum allStates { Peace, Moving };
         private allStates stateOfBead = allStates.Peace;
+        public allStates State
+        {
+            get { return stateOfBead; }
+        }
         private BeadsController parentController;
-        private int stepOfMoving = 0;
-        private int totalSteps = 100;
-        private Vector3 destinationPosition;
-        private float bmv = 0.000001f;
+        private const float bmv = 0.000001f;
         private List<int> walkToPositions = new List<int>();
 
         private int number = 0;
         private int positionNumber;
         private int prevPositionNumber;
+        private float movingDuration = 0.0f;
 
         // Start is called before the first frame update
         void Start()
@@ -53,10 +55,9 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
             if (positionNumber != newPositionNumber)
             {
                 prevPositionNumber = positionNumber;
-                stepOfMoving = 0;
+                movingDuration = 0.0f;
                 stateOfBead = allStates.Moving;
                 positionNumber = newPositionNumber;
-                destinationPosition = parentController.getPositionForSphere(newPositionNumber);
 
                 if (prevPositionNumber == 0)
                 {
@@ -73,23 +74,46 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
             this.positionNumber = positionNumber;
             stateOfBead = allStates.Peace;
             walkToPositions.Clear();
-            stepOfMoving = 0;
         }
 
         private void WalkToNextStep()
         {
-            stepOfMoving++;
-            float partOfDistance = (float)stepOfMoving / (float)totalSteps;
+            movingDuration += Time.deltaTime;
+            float partOfDistance = movingDuration / parentController.timeOfMove;
+            if(partOfDistance > 1.0f)
+            {
+                partOfDistance = 1.0f;
+            }
             Vector3 nextPosition = parentController.getPositionOnStepOfMovingTo(positionNumber, prevPositionNumber, partOfDistance);
             transform.Translate(nextPosition - transform.position);
         }
 
         private void checkForFinishOfWalking()
         {
-            if (stepOfMoving >= totalSteps)
+            if (Vector3.Distance(parentController.getPositionForSphere(positionNumber), transform.position) < 10000 * bmv)
             {
                 stateOfBead = allStates.Peace;
-                stepOfMoving = 0;
+                movingDuration = 0.0f;
+                Debug.Log("bead " + number + " is arrived to " + positionNumber);
+            }
+        }
+
+        public void BeadsResized(int lengthBefore)
+        {
+            if (lengthBefore < GameManager.Instance.settings.lengthOfCircle)
+            {
+                int r = GameManager.Instance.settings.lengthOfCircle - lengthBefore;
+                for (int i = 0; i < walkToPositions.Count; i++)
+                {
+                    walkToPositions[i] = (walkToPositions[i] + r) % GameManager.Instance.settings.lengthOfCircle;
+                }
+            }
+            else
+            {
+                for (int i = 0; i < walkToPositions.Count; i++)
+                {
+                    walkToPositions[i] = walkToPositions[i] % GameManager.Instance.settings.lengthOfCircle;
+                }
             }
         }
 

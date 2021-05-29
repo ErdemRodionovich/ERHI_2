@@ -8,39 +8,46 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
     {
         private List<GameObject> childSpheres = new List<GameObject>();
         private List<OneBeadController> childBeadsControllers = new List<OneBeadController>();
+        private List<OneBeadController> sphereControllersToActive = new List<OneBeadController>();
         private Vector3 center = new Vector3(0, -5, -2);
         private int countToStartTick = 0;
         private float prevMoveInterval = 0.0f;
         private bool tickCourutineIsRunning = false;
-        
+        private bool nowIsResizing = false;
 
         private float radiusY = 1.0f;
         private float radiusX = 1.0f;
         private float radiusZ = 1.0f;
         private int length = 12;
+        private int newLength = 12;
+        private bool needResize = false;
         private float moveInterval = 0.3f;
+        private float timeForStepOfBead = 1.0f;
+        public float timeOfMove
+        {
+            get { return timeForStepOfBead; }
+        }
+        private float originTimeForStepOfBead = 1.0f;
+        private float prevTickTime;
 
         public GameObject spherePrefab;
 
         private void Awake()
         {
             GameManager.Instance.OnGameStarted.AddListener(InitBeads);
+            GameManager.Instance.OnClickForTick.AddListener(Tick);
+            GameManager.Instance.settings.OnCircleLengthChanged.AddListener(HandleCircleLengthChange);
         }
 
         // Start is called before the first frame update
         void Start()
         {
-            GameManager.Instance.settings.OnCircleLengthChanged.AddListener(HandleCircleLengthChange);            
+            prevTickTime = Time.time;
         }
 
         // Update is called once per frame
         void Update()
         {
-            if (Input.GetMouseButtonUp(0))
-            {
-                Tick();
-            }
-
             if(countToStartTick > 1)
             {
                 if(!Global.Equal(moveInterval, 0.0f))
@@ -48,17 +55,31 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
                     prevMoveInterval = moveInterval;
                     moveInterval = 0.0f;
                 }
+                timeForStepOfBead = originTimeForStepOfBead / countToStartTick;
             }
             else if(countToStartTick > 0)
             {
                 if(Global.Equal(moveInterval, 0.0f) && !Global.Equal(prevMoveInterval, 0.0f))
                 {
                     moveInterval = prevMoveInterval;
-                }                
+                }
+                timeForStepOfBead = originTimeForStepOfBead;
+            }else if (!tickCourutineIsRunning)
+            {
+                if (needResize)
+                {
+                    ResizeBeads();
+                    needResize = false;
+                }
             }
 
             if (!tickCourutineIsRunning && countToStartTick > 0)
             {
+                if (needResize)
+                {
+                    ResizeBeads();
+                    needResize = false;
+                }
                 StartCoroutine(MoveBeadsForOneTick());
             }
 
@@ -106,9 +127,9 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
         {
             float minRadius = ((length + 2) * spherePrefab.GetComponent<SphereCollider>().radius * 2.001f) / (2 * Mathf.PI);
 
-            radiusX = checkAndGetRadius(radiusX, minRadius);
-            radiusY = checkAndGetRadius(radiusY, minRadius);
-            radiusZ = checkAndGetRadius(radiusZ, minRadius);
+            radiusX = minRadius; // checkAndGetRadius(radiusX, minRadius);
+            radiusY = minRadius; // checkAndGetRadius(radiusY, minRadius);
+            radiusZ = minRadius; // checkAndGetRadius(radiusZ, minRadius);
         }
 
         private float checkAndGetRadius(float radiusForCheck, float minRadius)
@@ -157,26 +178,47 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
         private IEnumerator MoveBeadsForOneTick() {
 
             tickCourutineIsRunning = true;
+            OneBeadController curController = childBeadsControllers[0];
+            curController.StartWalkToPosition(length);
+
+            yield return WaitInterval();
             
-            childBeadsControllers[0].StartWalkToPosition(length);
-
-            if(!Global.Equal(moveInterval, 0.0f))
+            for (int i=1; i < childBeadsControllers.Count; i++)
             {
-                yield return new WaitForSeconds(moveInterval);
-            }            
+                OneBeadController childController = childBeadsControllers[i];
 
-            for(int i=1; i<childBeadsControllers.Count; i++)
-            {
-                childBeadsControllers[i].StartWalkToPosition(i - 1);
-                if (!Global.Equal(moveInterval, 0.0f))
+                if (sphereControllersToActive.Contains(childController))
                 {
-                    yield return new WaitForSeconds(moveInterval);
+                    childController.gameObject.SetActive(true);
+                    int k = sphereControllersToActive.IndexOf(childController);
+                    for (int y = 0; y <= k; y++)
+                    {
+                        if (y == k)
+                        {
+                            yield return WaitTimeForMove();
+                        }
+                        sphereControllersToActive[y].StartWalkToPosition(length - 2 - (k - y));
+                        if (y == k)
+                        {
+                            yield return WaitTimeForMove();
+                        }
+                        else
+                        {
+                            yield return WaitInterval();
+                        }
+                    }
                 }
+                else
+                {
+                    childController.StartWalkToPosition(i - 1);
+                    yield return WaitInterval();
+                }                
             }
 
-            childBeadsControllers.Add(childBeadsControllers[0]);
+            sphereControllersToActive.Clear();
             childBeadsControllers.RemoveAt(0);
-            childBeadsControllers[childBeadsControllers.Count-1].StartWalkToPosition(length-1);
+            childBeadsControllers.Add(curController);
+            curController.StartWalkToPosition(length-1);
 
             if(countToStartTick > 0)
             {
@@ -186,6 +228,23 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
             tickCourutineIsRunning = false;
 
             yield return null;
+        }
+
+        private IEnumerator WaitInterval()
+        {
+            if (!Global.Equal(moveInterval, 0.0f))
+            {
+                yield return new WaitForSeconds(moveInterval);
+            }
+            else
+            {
+                yield return null;
+            }
+        }
+
+        private IEnumerator WaitTimeForMove()
+        {
+            yield return new WaitForSeconds(timeForStepOfBead);
         }
 
         public Vector3 getPositionOnStepOfMovingTo(int numberOfPosition, int fromPosition, float partOfDistance)
@@ -207,63 +266,119 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
 
         private void HandleCircleLengthChange()
         {
-            ResizeBeads();            
+            newLength = GameManager.Instance.settings.lengthOfCircle;
+            needResize = true;
         }
 
         private void ResizeBeads()
         {
+            nowIsResizing = true;
             int lengthBefore = length;
             length = GameManager.Instance.settings.lengthOfCircle;
             checkRadiuses();
             calculateCenter();
 
-            if (GameManager.Instance.settings.lengthOfCircle > lengthBefore)
+            bool canPlaceToPosition = false;
+            bool isRunningBeads = false;
+            foreach (OneBeadController beadController in childBeadsControllers)
             {
-                AddNewBeads(lengthBefore);
+                if (beadController.State == OneBeadController.allStates.Moving)
+                {
+                    isRunningBeads = true;
+                    break;
+                }
+            }
+            if (countToStartTick > 0 || isRunningBeads)
+            {
+                canPlaceToPosition = false;
+            }
+            else
+            {
+                canPlaceToPosition = true;
+            }
+
+            if (length > lengthBefore)
+            {
+                AddNewBeads(lengthBefore, canPlaceToPosition);
             }
             else
             {
                 HideSomeBeads();
             }
+
+            if (canPlaceToPosition)
+            {
+                for (int i = 0; i < childBeadsControllers.Count; i++)
+                {
+                    GameObject sphete = childBeadsControllers[i].gameObject;
+                    sphete.transform.Translate(getPositionForSphere(i) - sphete.transform.position);
+                }
+            }
+
+            foreach (OneBeadController beadController in childBeadsControllers)
+            {
+                beadController.BeadsResized(lengthBefore);
+            }
+
+            nowIsResizing = false;
+
         }
 
-        private void AddNewBeads(int lengthBefore)
+        private void AddNewBeads(int lengthBefore, bool canPlaceToPosition)
         {
-            for(int i = lengthBefore; i < length; i++)
+            for (int i = lengthBefore; i < length; i++)
             {
                 GameObject sphere = null;
-                if(childSpheres.Count <= i)
+                if (childSpheres.Count <= i)
                 {
-                    sphere = CreateAndInitNewBead(i);
+                    Vector3 positionToPlace;
+                    if (canPlaceToPosition)
+                    {
+                        positionToPlace = getPositionForSphere(i);
+                    }
+                    else
+                    {
+                        positionToPlace = getPositionForSphere(length - 1);
+                    }
+                    sphere = Instantiate(spherePrefab, positionToPlace, spherePrefab.transform.rotation, transform);
+                    sphere.SetActive(false);
                 }
                 else
                 {
                     sphere = childSpheres[i];
+                }
+
+                OneBeadController childController = sphere.GetComponent<OneBeadController>();
+                
+                if (!canPlaceToPosition)
+                {
+                    Debug.Log("Add sphere to INACTIVE position " + (length-1));
+                    sphere.transform.Translate(getPositionForSphere(length - 1) - sphere.transform.position);
+                    childController.Init(this, i, length - 1);
+                    sphere.SetActive(false);
+                    sphereControllersToActive.Add(childController);
+                }
+                else
+                {
+                    Debug.Log("Add sphere to position " + i);
+                    childController.Init(this, i, i);
                     sphere.SetActive(true);
                     sphere.transform.Translate(getPositionForSphere(i) - sphere.transform.position);
-                    OneBeadController childController = sphere.GetComponent<OneBeadController>();
-                    childController.Init(this, i, i);
-                    childBeadsControllers.Add(childController);
                 }
-            }
-        }
+                childBeadsControllers.Add(childController);
 
-        private GameObject CreateAndInitNewBead(int number)
-        {
-            GameObject sphere = Instantiate(spherePrefab, getPositionForSphere(number), spherePrefab.transform.rotation, transform);
-            sphere.SetActive(true);
-            childSpheres.Add(sphere);
-            OneBeadController childController = sphere.GetComponent<OneBeadController>();
-            childController.Init(this, number, number);
-            childBeadsControllers.Add(childController);
-            return sphere;
+            }
         }
 
         private void HideSomeBeads()
         {
-            for(int i = length; i < childSpheres.Count; i++)
+            for(int i = childBeadsControllers.Count-1; i >= length ; i--)
             {
-                //TODO: find gameobject by childBeadsControllers
+                OneBeadController curController = childBeadsControllers[i];
+                curController.gameObject.SetActive(false);
+                childSpheres.Remove(curController.gameObject);
+                childSpheres.Add(curController.gameObject);
+                childBeadsControllers.RemoveAt(i);
             }
         }
 
