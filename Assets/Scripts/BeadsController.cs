@@ -29,6 +29,7 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
         }
         private float originTimeForStepOfBead = 1.0f;
         private float prevTickTime;
+        private OneBeadController curBeadForMove;
 
         public GameObject spherePrefab;
 
@@ -56,6 +57,10 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
                     moveInterval = 0.0f;
                 }
                 timeForStepOfBead = originTimeForStepOfBead / countToStartTick;
+                if(timeForStepOfBead < 0.1f)
+                {
+                    timeForStepOfBead = 0.1f;
+                }
             }
             else if(countToStartTick > 0)
             {
@@ -111,7 +116,14 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
                 OneBeadController childBeadController = sphere.GetComponent<OneBeadController>();
                 childBeadsControllers.Add(childBeadController);
                 childBeadController.Init(this, i, i);
+                if (i > 0)
+                {
+                    childBeadsControllers[i - 1].next = childBeadController;
+                }
             }
+
+            childBeadsControllers[childBeadsControllers.Count - 1].next = childBeadsControllers[0];
+            curBeadForMove = childBeadsControllers[0];
 
             if(childSpheres.Count > length)
             {
@@ -178,47 +190,13 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
         private IEnumerator MoveBeadsForOneTick() {
 
             tickCourutineIsRunning = true;
-            OneBeadController curController = childBeadsControllers[0];
-            curController.StartWalkToPosition(length);
 
-            yield return WaitInterval();
-            
-            for (int i=1; i < childBeadsControllers.Count; i++)
-            {
-                OneBeadController childController = childBeadsControllers[i];
-
-                if (sphereControllersToActive.Contains(childController))
-                {
-                    childController.gameObject.SetActive(true);
-                    int k = sphereControllersToActive.IndexOf(childController);
-                    for (int y = 0; y <= k; y++)
-                    {
-                        if (y == k)
-                        {
-                            yield return WaitTimeForMove();
-                        }
-                        sphereControllersToActive[y].StartWalkToPosition(length - 2 - (k - y));
-                        if (y == k)
-                        {
-                            yield return WaitTimeForMove();
-                        }
-                        else
-                        {
-                            yield return WaitInterval();
-                        }
-                    }
-                }
-                else
-                {
-                    childController.StartWalkToPosition(i - 1);
-                    yield return WaitInterval();
-                }                
+            curBeadForMove.MarkCanThroughZero();
+            if (curBeadForMove.positionIndex == 0)
+            { 
+                curBeadForMove.OnPreviousBeadStartMoving(length); 
             }
-
-            sphereControllersToActive.Clear();
-            childBeadsControllers.RemoveAt(0);
-            childBeadsControllers.Add(curController);
-            curController.StartWalkToPosition(length-1);
+            curBeadForMove = curBeadForMove.next;
 
             if(countToStartTick > 0)
             {
@@ -277,7 +255,8 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
             length = GameManager.Instance.settings.lengthOfCircle;
             checkRadiuses();
             calculateCenter();
-
+            
+            //TODO
             bool canPlaceToPosition = false;
             bool isRunningBeads = false;
             foreach (OneBeadController beadController in childBeadsControllers)

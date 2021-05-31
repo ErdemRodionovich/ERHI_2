@@ -15,11 +15,23 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
         private BeadsController parentController;
         private const float bmv = 0.000001f;
         private List<int> walkToPositions = new List<int>();
+        private List<bool> canWalkThroughZero = new List<bool>();
 
         private int number = 0;
         private int positionNumber;
+        public int positionIndex
+        {
+            get { return positionNumber; }
+        }
         private int prevPositionNumber;
         private float movingDuration = 0.0f;
+        private float prevBeadStartMovingTime = 0.0f;
+        private OneBeadController nextBead;
+        public OneBeadController next
+        {
+            get { return nextBead; }
+            set { nextBead = value; }
+        }
 
         // Start is called before the first frame update
         void Start()
@@ -39,8 +51,16 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
             {
                 if(walkToPositions.Count > 0)
                 {
-                    StartWalk(walkToPositions[0]);
-                    walkToPositions.RemoveAt(0);
+                    if (prevBeadStartMovingTime > parentController.timeOfMove)
+                    {
+                        StartWalk(walkToPositions[0]);
+                        walkToPositions.RemoveAt(0);
+                        prevBeadStartMovingTime = 0.0f;
+                    }
+                    else
+                    {
+                        prevBeadStartMovingTime += Time.deltaTime;
+                    }
                 }
             }
         }
@@ -63,6 +83,7 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
                 {
                     GameManager.Instance.Tick();
                 }
+                OnStartMoving();
             }
 
         }
@@ -115,6 +136,37 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
                     walkToPositions[i] = walkToPositions[i] % GameManager.Instance.settings.lengthOfCircle;
                 }
             }
+        }
+
+        public void OnPreviousBeadStartMoving(int fromPosition)
+        {
+            if(positionNumber != 0)
+            {
+                walkToPositions.Add(fromPosition);
+                prevBeadStartMovingTime = 0.0f;
+            }
+            else
+            {
+                if(canWalkThroughZero.Count > 0)
+                {
+                    walkToPositions.Add(fromPosition);
+                    prevBeadStartMovingTime = 0.0f;
+                    canWalkThroughZero.RemoveAt(0);
+                }
+            }
+        }
+
+        private void OnStartMoving()
+        {
+            if(nextBead != null)
+            {
+                nextBead.OnPreviousBeadStartMoving(prevPositionNumber);
+            }
+        }
+
+        public void MarkCanThroughZero()
+        {
+            canWalkThroughZero.Add(true);
         }
 
     }
