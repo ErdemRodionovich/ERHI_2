@@ -24,6 +24,7 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
             get { return positionNumber; }
         }
         private int prevPositionNumber;
+        private Vector3 positionsDiff = new Vector3(0.0f, 0.0f, 0.0f);
         private float movingDuration = 0.0f;
         private float prevBeadStartMovingTime = 0.0f;
         private OneBeadController nextBead;
@@ -51,7 +52,7 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
             {
                 if(walkToPositions.Count > 0)
                 {
-                    if (prevBeadStartMovingTime > parentController.timeOfMove)
+                    if (prevBeadStartMovingTime > parentController.intervalForMove)
                     {
                         StartWalk(walkToPositions[0]);
                         walkToPositions.RemoveAt(0);
@@ -68,6 +69,7 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
         public void StartWalkToPosition(int newPositionNumber)
         {
             walkToPositions.Add(newPositionNumber);
+            prevBeadStartMovingTime = parentController.TimeOfMove;
         }
 
         private void StartWalk(int newPositionNumber) {
@@ -100,13 +102,13 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
         private void WalkToNextStep()
         {
             movingDuration += Time.deltaTime;
-            float partOfDistance = movingDuration / parentController.timeOfMove;
+            float partOfDistance = movingDuration / parentController.TimeOfMove;
             if(partOfDistance > 1.0f)
             {
                 partOfDistance = 1.0f;
             }
             Vector3 nextPosition = parentController.getPositionOnStepOfMovingTo(positionNumber, prevPositionNumber, partOfDistance);
-            transform.Translate(nextPosition - transform.position);
+            transform.Translate(nextPosition - transform.position + positionsDiff * (1.0f - partOfDistance));
         }
 
         private void checkForFinishOfWalking()
@@ -115,58 +117,63 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
             {
                 stateOfBead = allStates.Peace;
                 movingDuration = 0.0f;
-                Debug.Log("bead " + number + " is arrived to " + positionNumber);
+                positionsDiff = new Vector3(0.0f, 0.0f, 0.0f);
             }
         }
 
         public void BeadsResized(int lengthBefore)
         {
-            if (lengthBefore < GameManager.Instance.settings.lengthOfCircle)
+            if (stateOfBead == allStates.Peace)
             {
-                int r = GameManager.Instance.settings.lengthOfCircle - lengthBefore;
-                for (int i = 0; i < walkToPositions.Count; i++)
-                {
-                    walkToPositions[i] = (walkToPositions[i] + r) % GameManager.Instance.settings.lengthOfCircle;
-                }
+                positionsDiff = parentController.getPositionForSphere(positionNumber) - transform.position;
+                stateOfBead = allStates.Moving;
+                movingDuration = 0.0f;
             }
             else
             {
-                for (int i = 0; i < walkToPositions.Count; i++)
+                float partOfDistance = movingDuration / parentController.TimeOfMove;
+                if (partOfDistance > 1.0f)
                 {
-                    walkToPositions[i] = walkToPositions[i] % GameManager.Instance.settings.lengthOfCircle;
+                    partOfDistance = 1.0f;
+                }
+                Vector3 nextPosition = parentController.getPositionOnStepOfMovingTo(positionNumber, prevPositionNumber, partOfDistance);
+                if (partOfDistance != 1.0f)
+                {
+                    positionsDiff = (nextPosition - transform.position) / (1.0f - partOfDistance);
+                }
+                else
+                {
+                    positionsDiff = new Vector3(0.0f, 0.0f, 0.0f);
                 }
             }
         }
 
         public void OnPreviousBeadStartMoving(int fromPosition)
         {
-            if(positionNumber != 0)
+            prevBeadStartMovingTime = 0.0f;
+            if (positionNumber != 0 && fromPosition != positionNumber)
             {
-                walkToPositions.Add(fromPosition);
-                prevBeadStartMovingTime = 0.0f;
-            }
-            else
-            {
-                if(canWalkThroughZero.Count > 0)
+                for (int i = positionNumber - 1; i >= fromPosition; i--)
                 {
-                    walkToPositions.Add(fromPosition);
-                    prevBeadStartMovingTime = 0.0f;
-                    canWalkThroughZero.RemoveAt(0);
+                    walkToPositions.Add(i);
+                }
+                if (!gameObject.activeInHierarchy)
+                {
+                    gameObject.SetActive(true);
                 }
             }
         }
 
         private void OnStartMoving()
         {
-            if(nextBead != null)
+            if (nextBead != null)
             {
                 nextBead.OnPreviousBeadStartMoving(prevPositionNumber);
             }
-        }
-
-        public void MarkCanThroughZero()
-        {
-            canWalkThroughZero.Add(true);
+            else
+            {
+                Debug.LogError("[OneBeadController] nextBead is NULL. OnStartMoving. position number:"+positionNumber+" number:"+number);
+            }
         }
 
     }
