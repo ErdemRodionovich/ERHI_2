@@ -18,6 +18,7 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
         private float radiusX = 1.0f;
         private float radiusZ = 1.0f;
         private int length = 12;
+        private int freeCount = 2;
         private bool needResize = false;
         private float moveInterval = 0.3f;
         public float intervalForMove
@@ -102,7 +103,7 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
 
         private void checkRadiuses()
         {
-            float minRadius = ((length + 2) * spherePrefab.GetComponent<SphereCollider>().radius * 2.001f) / (2 * Mathf.PI);
+            float minRadius = ((length + freeCount) * spherePrefab.GetComponent<SphereCollider>().radius * 2.001f) / (2 * Mathf.PI);
 
             radiusX = minRadius; // checkAndGetRadius(radiusX, minRadius);
             radiusY = minRadius; // checkAndGetRadius(radiusY, minRadius);
@@ -144,7 +145,7 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
 
         public float getAngleForPosition(int numberOfPosition)
         {
-            return (Mathf.PI / 2 - numberOfPosition * (2 * Mathf.PI / (length + 2)));
+            return (Mathf.PI / 2 - numberOfPosition * (2 * Mathf.PI / (length + freeCount)));
         }
 
         private void Tick()
@@ -157,7 +158,7 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
             if (!Global.Equal(moveInterval, 0.0f))
             {
                 prevMoveInterval = moveInterval;
-                moveInterval = 0.1f;
+                moveInterval = 1.0f / (float) length;
             }
             timeForStepOfBead = originTimeForStepOfBead / (float) length;
         }
@@ -180,29 +181,37 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
                 ResizeBeads();
             }
 
+            int maxPosition = 0;
             bool isMovingBeads = false;
             foreach (OneBeadController curBeadForMove in childBeadsControllers)
             {
                 if (curBeadForMove.State == OneBeadController.allStates.Moving)
                 {
                     isMovingBeads = true;
-                    break;
+                }
+
+                if(maxPosition < curBeadForMove.positionIndex)
+                {
+                    maxPosition = curBeadForMove.positionIndex;
                 }
             }
-            if (isMovingBeads)
+
+            if((maxPosition+1) < (length + freeCount))
             {
-                BootBeadsMoving();
+                maxPosition++; 
+                RelaxBeadMoving();
             }
             else
             {
-                RelaxBeadMoving();
+                BootBeadsMoving();
             }
-
+            
             foreach (OneBeadController curBeadForMove in childBeadsControllers)
             {
                 if (curBeadForMove.positionIndex == 0 && curBeadForMove != lastMovedBead)
                 {
-                    curBeadForMove.StartWalkToPosition(length);
+                    curBeadForMove.StartWalkToPosition(maxPosition);
+                    Debug.Log("[BeadController] Start walking to " + maxPosition);
                     lastMovedBead = curBeadForMove;
                     if (countToStartTick > 0)
                     {
@@ -262,6 +271,7 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
         {
             int lengthBefore = length;
             length = GameManager.Instance.settings.lengthOfCircle;
+            freeCount = length / 10 + 1;
             checkRadiuses();
             calculateCenter();
             
@@ -296,7 +306,8 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
             }
             nextOfLast = last.next;
             Vector3 positionToPlace = getPositionForSphere(last.positionIndex);
-            
+            int numberOfPosition = last.positionIndex;
+
             for (int i = lengthBefore; i < length; i++)
             {
                 GameObject sphere = null;
@@ -317,10 +328,28 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
                     sphere.SetActive(false);
                 }
 
+                bool positionIsBusy = false;
+                foreach(OneBeadController chController in childBeadsControllers)
+                {
+                    if (!chController.IsPositionFree(numberOfPosition + 1))
+                    {
+                        positionIsBusy = true;
+                        break;
+                    }
+                }
+                bool placeActived = false;
+                if (!positionIsBusy && (numberOfPosition+1) < (length+freeCount))
+                {
+                    placeActived = true;
+                    numberOfPosition++;
+                    positionToPlace = getPositionForSphere(numberOfPosition);
+                }
+
                 OneBeadController childController = sphere.GetComponent<OneBeadController>();
+                //TODO
                 Debug.Log("[BeadsController] Add INACTIVE sphere to position " + last.positionIndex);
                 sphere.transform.Translate(positionToPlace - sphere.transform.position);
-                childController.Init(this, i, last.positionIndex);
+                childController.Init(this, i, numberOfPosition);
                 sphere.SetActive(false);
                 childBeadsControllers.Add(childController);
                 last.next = childController;

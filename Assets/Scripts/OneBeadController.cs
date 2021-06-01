@@ -151,7 +151,7 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
         public void OnPreviousBeadStartMoving(int fromPosition)
         {
             prevBeadStartMovingTime = 0.0f;
-            if (positionNumber != 0 && fromPosition != positionNumber)
+            if (positionNumber != 0 && fromPosition < positionNumber)
             {
                 for (int i = positionNumber - 1; i >= fromPosition; i--)
                 {
@@ -174,6 +174,11 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
             {
                 Debug.LogError("[OneBeadController] nextBead is NULL. OnStartMoving. position number:"+positionNumber+" number:"+number);
             }
+        }
+
+        public bool IsPositionFree(int NumberOfPosition)
+        {
+            return (NumberOfPosition != positionNumber && !walkToPositions.Contains(NumberOfPosition));
         }
 
     }
