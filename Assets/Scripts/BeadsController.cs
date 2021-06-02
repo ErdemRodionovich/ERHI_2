@@ -20,6 +20,7 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
         private int length = 12;
         private int freeCount = 2;
         private bool needResize = false;
+        private float originMoveInterval = 0.3f;
         private float moveInterval = 0.3f;
         public float intervalForMove
         {
@@ -30,7 +31,7 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
         {
             get { return timeForStepOfBead; }
         }
-        private float originTimeForStepOfBead = 1.0f;
+        private float originTimeForStepOfBead = 0.5f;
         private float prevTickTime;
         
         public GameObject spherePrefab;
@@ -63,6 +64,7 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
             checkRadiuses();
             calculateCenter();
             childBeadsControllers.Clear();
+            originMoveInterval = 1.0f / length;
             
             for (int i = 0; i < length; i++)
             {
@@ -153,22 +155,23 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
             countToStartTick++;
         }
 
-        private void BootBeadsMoving()
+        private void BootBeadsMoving(int forceCount)
         {
-            if (!Global.Equal(moveInterval, 0.0f))
+            if (forceCount >= (freeCount-1))
             {
-                prevMoveInterval = moveInterval;
-                moveInterval = 1.0f / (float) length;
+                timeForStepOfBead = originTimeForStepOfBead / (float)length;
+                moveInterval = originMoveInterval / (float)length;
             }
-            timeForStepOfBead = originTimeForStepOfBead / (float) length;
+            else
+            {
+                timeForStepOfBead = originTimeForStepOfBead / (float)(forceCount + 2);
+                moveInterval = originMoveInterval / (float)(forceCount + 2);
+            }
         }
 
         private void RelaxBeadMoving()
         {
-            if (Global.Equal(moveInterval, 0.0f) && !Global.Equal(prevMoveInterval, 0.0f))
-            {
-                moveInterval = prevMoveInterval;
-            }
+            moveInterval = originMoveInterval;
             timeForStepOfBead = originTimeForStepOfBead;
         }
 
@@ -196,16 +199,19 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
                 }
             }
 
-            if((maxPosition+1) < (length + freeCount))
+            if ((maxPosition+1) < (length + freeCount))
             {
-                maxPosition++; 
+                maxPosition++;
+            }
+
+            if (maxPosition > length)
+            {
+                BootBeadsMoving(maxPosition - length);
+            }
+            else { 
                 RelaxBeadMoving();
             }
-            else
-            {
-                BootBeadsMoving();
-            }
-            
+
             foreach (OneBeadController curBeadForMove in childBeadsControllers)
             {
                 if (curBeadForMove.positionIndex == 0 && curBeadForMove != lastMovedBead)
@@ -274,7 +280,8 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
             freeCount = length / 10 + 1;
             checkRadiuses();
             calculateCenter();
-            
+            originMoveInterval = 1.0f / length;
+
             if (length > lengthBefore)
             {
                 AddNewBeads(lengthBefore);
@@ -327,7 +334,7 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
                     sphere = Instantiate(spherePrefab, positionToPlace, spherePrefab.transform.rotation, transform);
                     sphere.SetActive(false);
                 }
-
+                numberOfPosition = last.positionIndex;
                 bool positionIsBusy = false;
                 foreach(OneBeadController chController in childBeadsControllers)
                 {
@@ -346,11 +353,18 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
                 }
 
                 OneBeadController childController = sphere.GetComponent<OneBeadController>();
-                //TODO
-                Debug.Log("[BeadsController] Add INACTIVE sphere to position " + last.positionIndex);
+                if (placeActived)
+                {
+                    Debug.Log("[BeadsController] Add active sphere to position " + numberOfPosition);
+                    sphere.SetActive(true);
+                }
+                else
+                {
+                    Debug.Log("[BeadsController] Add INACTIVE sphere to position " + numberOfPosition);
+                    sphere.SetActive(false);
+                }
                 sphere.transform.Translate(positionToPlace - sphere.transform.position);
                 childController.Init(this, i, numberOfPosition);
-                sphere.SetActive(false);
                 childBeadsControllers.Add(childController);
                 last.next = childController;
                 last = childController;
