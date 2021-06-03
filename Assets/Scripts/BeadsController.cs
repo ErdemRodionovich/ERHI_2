@@ -107,9 +107,10 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
         {
             float minRadius = ((length + freeCount) * spherePrefab.GetComponent<SphereCollider>().radius * 2.001f) / (2 * Mathf.PI);
 
-            radiusX = minRadius; // checkAndGetRadius(radiusX, minRadius);
-            radiusY = minRadius; // checkAndGetRadius(radiusY, minRadius);
-            radiusZ = minRadius; // checkAndGetRadius(radiusZ, minRadius);
+            radiusZ = minRadius * 3;
+            radiusX = radiusZ * Mathf.Tan(Mathf.PI/12);
+            radiusY = radiusZ * Mathf.Tan(Mathf.PI/8);
+            
         }
 
         private float checkAndGetRadius(float radiusForCheck, float minRadius)
@@ -140,7 +141,7 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
         {
             float x = radiusX * Mathf.Cos(angleOfPosition) + center.x;
             float y = radiusY * Mathf.Sin(angleOfPosition) + center.y;
-            float z = radiusZ * Mathf.Cos(angleOfPosition) + center.z;
+            float z = radiusZ * Mathf.Cos(angleOfPosition + Mathf.PI/2) + center.z;
 
             return new Vector3(x, y, z);
         }
