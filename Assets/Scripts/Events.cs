@@ -14,5 +14,6 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
         [System.Serializable] public class GameStarted : UnityEvent { }
         [System.Serializable] public class GameSettingChanged : UnityEvent { }
         [System.Serializable] public class CircleLengthChanged : UnityEvent { }
+        [System.Serializable] public class GameRestarted : UnityEvent { }
     }
 }

@@ -22,6 +22,7 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
         public Events.Tick OnTick = new Events.Tick();
         public Events.GameStarted OnGameStarted = new Events.GameStarted();
         public Events.ClickForTick OnClickForTick = new Events.ClickForTick();
+        public Events.GameRestarted OnGameRestarted = new Events.GameRestarted();
 
         public GameSettings settings {
             get { return GameSettings.Instance; }
@@ -209,6 +210,20 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
         public void TogglePause()
         {
             UpdateState(currentState == GameStates.PAUSED ? GameStates.RUNNING : GameStates.PAUSED);
+        }
+
+        public void ResetGame()
+        {
+            settings.currentTick = 0;
+            settings.currentCircle = 0;
+            if(OnGameRestarted != null)
+            {
+                OnGameRestarted.Invoke();
+            }
+            if(OnTick != null)
+            {
+                OnTick.Invoke();
+            }
         }
 
         public void Tick()

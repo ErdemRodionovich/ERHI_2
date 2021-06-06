@@ -43,6 +43,7 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
             GameManager.Instance.OnGameStarted.AddListener(InitBeads);
             GameManager.Instance.OnClickForTick.AddListener(Tick);
             GameManager.Instance.settings.OnCircleLengthChanged.AddListener(HandleCircleLengthChange);
+            GameManager.Instance.OnGameRestarted.AddListener(HandleGameRestart);
         }
 
         // Start is called before the first frame update
@@ -83,11 +84,11 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
                 {
                     sphere = childSpheres[i];
                     sphere.SetActive(true);
-                    sphere.transform.Translate(positionOfSphere - sphere.transform.position);
                 }
                 OneBeadController childBeadController = sphere.GetComponent<OneBeadController>();
                 childBeadsControllers.Add(childBeadController);
                 childBeadController.Init(this, i, i);
+                sphere.transform.Translate(positionOfSphere - sphere.transform.position);
                 if (i > 0)
                 {
                     childBeadsControllers[i - 1].next = childBeadController;
@@ -117,30 +118,25 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
             if (minRadius > 7.2f)
             {
                 minRadius = 7.2f;
-                radiusZ = minRadius * 3;
-                radiusX = radiusZ * Mathf.Tan(Mathf.PI / 12);
-                radiusY = radiusZ * Mathf.Tan(Mathf.PI / 8);
-                lengthEll = LengthOfEllipse(radiusX, radiusY, radiusZ);
-                
-                reqRadiusOfBead = lengthEll / ((length + freeCount)*2.0f);
-                float resizeCoeff = reqRadiusOfBead / radiusOfBead;
-                if (resizeCoeff < 1.0f)
-                {
-                    scaleOfBead = new Vector3(resizeCoeff, resizeCoeff, resizeCoeff);
-                }
             }
+
+            radiusZ = minRadius * 3;
+            radiusX = radiusZ * Mathf.Tan(Mathf.PI / 12);
+            radiusY = radiusZ * Mathf.Tan(Mathf.PI / 8);
+            lengthEll = LengthOfEllipse(radiusX, radiusY, radiusZ);
+                
+            reqRadiusOfBead = lengthEll / ((length + freeCount+1)*2.0f);
+            float resizeCoeff = reqRadiusOfBead / radiusOfBead;
+            if (resizeCoeff < 1.0f)
+            {
+                scaleOfBead = new Vector3(resizeCoeff, resizeCoeff, resizeCoeff);
+            }
+            
             spherePrefab.transform.localScale = scaleOfBead;
             for(int i=0; i < childBeadsControllers.Count; i++)
             {
                 childBeadsControllers[i].scale = scaleOfBead;
             }
-
-            radiusZ = minRadius * 3;
-            radiusX = radiusZ * Mathf.Tan(Mathf.PI/12);
-            radiusY = radiusZ * Mathf.Tan(Mathf.PI/8);
-            
-            Debug.Log("[BeadsController] Min radius = " + minRadius.ToString() + " rZ=" + radiusZ.ToString() + " rY=" + radiusY.ToString() + " rX=" + radiusX.ToString()+
-                    " radiusOfBead="+radiusOfBead.ToString()+" scaleOfBead="+scaleOfBead.ToString()+" reqFadius="+reqRadiusOfBead.ToString());
 
             InitAngleTable(reqRadiusOfBead);
 
@@ -164,22 +160,24 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
             float step = 2.0f * Mathf.PI / ((length + freeCount)*10.0f);
             anglesTable.Add(curAngle);
             Vector3 curPosition = getPositionByAngle(curAngle);
+            Vector3 nextPosition;
             float dist = 0.0f;
             
-            Debug.Log("[BeadController] reqDist="+reqDistance.ToString()+" anglesTable = ");
             for (int i=1; i <= (length+freeCount); i++)
             {
+                dist = 0.0f;
                 do
                 {
                     nextAngle -= step;
-                    dist = Vector3.Distance(getPositionByAngle(nextAngle), curPosition);
+                    nextPosition = getPositionByAngle(nextAngle);
+                    dist += Vector3.Distance(nextPosition, curPosition);
+                    curPosition = nextPosition;
                 }
                 while (dist < reqDistance);
                 
                 curAngle = nextAngle;
                 curPosition = getPositionByAngle(curAngle);
                 anglesTable.Add(curAngle);
-                Debug.Log("angle = " + curAngle+" dist="+dist+" i="+i);
             }
         }
 
@@ -218,7 +216,7 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
 
         public float getAngleForPosition(int numberOfPosition)
         {
-            if (anglesTable.Contains(numberOfPosition))
+            if (anglesTable.Count > numberOfPosition)
             {
                 return anglesTable[numberOfPosition];
             }
@@ -480,6 +478,13 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
 
             beadControllers[length - 1].next = beadControllers[0];
 
+        }
+
+        private void HandleGameRestart()
+        {
+            InitBeads();
+            countToStartTick = 0;
+            lastMovedBead = null;
         }
 
     }

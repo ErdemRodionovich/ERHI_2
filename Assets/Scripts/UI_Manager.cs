@@ -63,13 +63,7 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90 {
         // Update is called once per frame
         void Update()
         {
-            if (Input.GetMouseButtonUp(0) && !menu.activeInHierarchy)
-            {
-                if (GameManager.Instance.OnClickForTick != null)
-                {
-                    GameManager.Instance.OnClickForTick.Invoke();
-                }
-            }
+            
         }
 
         private void OnEnable()
@@ -192,6 +186,19 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90 {
         public void OnCancelButtonClicked()
         {
             GameManager.Instance.CancelTick();
+        }
+
+        public void OnResetButtonClicked()
+        {
+            GameManager.Instance.ResetGame();
+        }
+
+        public void OnTickButtonClicked()
+        {
+            if (GameManager.Instance.OnClickForTick != null)
+            {
+                GameManager.Instance.OnClickForTick.Invoke();
+            }
         }
 
         public void OnBackButtonClicked()
