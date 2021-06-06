@@ -82,16 +82,18 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
 
         public void SaveSettings()
         {
+            //TODO
             string settingString = JsonUtility.ToJson(this);
-            PlayerPrefs.SetString("Game settings", settingString);
+            PlayerPrefs.SetString("GameSettings", settingString);
             PlayerPrefs.Save();
+            Debug.Log("[GameSettings] Settings saved. JSON:"+settingString);
         }
 
         public void ReadSettings()
         {
-            if (PlayerPrefs.HasKey("Game settings"))
+            if (PlayerPrefs.HasKey("GameSettings"))
             {
-                string settingsString = PlayerPrefs.GetString("Game settings");
+                string settingsString = PlayerPrefs.GetString("GameSettings");
                 JsonUtility.FromJsonOverwrite(settingsString, this);
 
                 if(OnSettingsChanged != null)
@@ -99,6 +101,12 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
                     OnSettingsChanged.Invoke();
                 }
 
+                Debug.Log("[GameSettings] Settings readed. JSON:"+settingsString);
+
+            }
+            else
+            {
+                Debug.Log("[GameSettings] Setting NOT readed.");
             }
         }
 

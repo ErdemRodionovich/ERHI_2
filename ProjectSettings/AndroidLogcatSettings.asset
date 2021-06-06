@@ -2,8 +2,8 @@
     "m_SelectedDeviceId": "R58M442SAYF",
     "m_SelectedPackage": {
         "deviceId": "R58M442SAYF",
-        "name": "com.DefaultCompany.com.unity.template.mobile2D",
-        "processId": 19481,
+        "name": "org.erhi",
+        "processId": 13870,
         "exited": true
     },
     "m_SelectedPriority": 0,
@@ -12,6 +12,36 @@
             "deviceId": "R58M442SAYF",
             "name": "com.DefaultCompany.com.unity.template.mobile2D",
             "processId": 19481,
+            "exited": true
+        },
+        {
+            "deviceId": "R58M442SAYF",
+            "name": "com.sec.android.app.launcher",
+            "processId": 5424,
+            "exited": false
+        },
+        {
+            "deviceId": "R58M442SAYF",
+            "name": "org.erhi",
+            "processId": 1490,
+            "exited": true
+        },
+        {
+            "deviceId": "R58M442SAYF",
+            "name": "org.erhi",
+            "processId": 2638,
+            "exited": true
+        },
+        {
+            "deviceId": "R58M442SAYF",
+            "name": "org.erhi",
+            "processId": 8721,
+            "exited": true
+        },
+        {
+            "deviceId": "R58M442SAYF",
+            "name": "org.erhi",
+            "processId": 13870,
             "exited": true
         }
     ],

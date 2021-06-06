@@ -257,7 +257,7 @@ PlayerSettings:
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
   AndroidKeystoreName: '{inproject}: erhi_keystore/android_release.keystore'
-  AndroidKeyaliasName: erhi key
+  AndroidKeyaliasName: erhi
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 0
   AndroidIsGame: 1
