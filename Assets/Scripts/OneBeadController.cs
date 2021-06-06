@@ -34,15 +34,32 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
             set { nextBead = value; }
         }
 
+        private Vector3 scaleOfSphere = new Vector3(1.0f, 1.0f, 1.0f);
+        bool needChangeScale = false;
+        public Vector3 scale
+        {
+            get { return scaleOfSphere; }
+            set { 
+                needChangeScale = true;
+                scaleOfSphere = value;
+            }
+        }
+
         // Start is called before the first frame update
         void Start()
         {
-
+            scaleOfSphere = gameObject.transform.localScale;
         }
 
         // Update is called once per frame
         void Update()
         {
+            if (needChangeScale)
+            {
+                gameObject.transform.localScale = scaleOfSphere;
+                needChangeScale = false;
+            }
+            
             if (stateOfBead == allStates.Moving)
             {
                 WalkToNextStep();
@@ -50,7 +67,7 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
             }
             else
             {
-                if(walkToPositions.Count > 0)
+                if (walkToPositions.Count > 0)
                 {
                     if (prevBeadStartMovingTime > parentController.intervalForMove)
                     {

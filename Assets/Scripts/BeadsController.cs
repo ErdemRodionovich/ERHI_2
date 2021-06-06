@@ -13,11 +13,13 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
         private float prevMoveInterval = 0.0f;
         private bool tickCourutineIsRunning = false;
         private OneBeadController lastMovedBead = null;
+        private Vector3 scaleOfBead = new Vector3(1.0f, 1.0f, 1.0f);
 
         private float radiusY = 1.0f;
         private float radiusX = 1.0f;
         private float radiusZ = 1.0f;
         private int length = 12;
+        private List<float> anglesTable = new List<float>();
         private int freeCount = 2;
         private bool needResize = false;
         private float originMoveInterval = 0.3f;
@@ -47,6 +49,7 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
         void Start()
         {
             prevTickTime = Time.time;
+            scaleOfBead = spherePrefab.transform.localScale;
         }
 
         // Update is called once per frame
@@ -105,12 +108,79 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
 
         private void checkRadiuses()
         {
-            float minRadius = ((length + freeCount) * spherePrefab.GetComponent<SphereCollider>().radius * 2.001f) / (2 * Mathf.PI);
+            float radiusOfBead = spherePrefab.GetComponent<SphereCollider>().radius;
+            float minRadius = ((length + freeCount) * radiusOfBead * 2.001f) / (2 * Mathf.PI);
+            scaleOfBead = new Vector3(1.0f, 1.0f, 1.0f);
+            float lengthEll = 0.0f;
+            float reqRadiusOfBead = radiusOfBead;
+
+            if (minRadius > 7.2f)
+            {
+                minRadius = 7.2f;
+                radiusZ = minRadius * 3;
+                radiusX = radiusZ * Mathf.Tan(Mathf.PI / 12);
+                radiusY = radiusZ * Mathf.Tan(Mathf.PI / 8);
+                lengthEll = LengthOfEllipse(radiusX, radiusY, radiusZ);
+                
+                reqRadiusOfBead = lengthEll / ((length + freeCount)*2.0f);
+                float resizeCoeff = reqRadiusOfBead / radiusOfBead;
+                if (resizeCoeff < 1.0f)
+                {
+                    scaleOfBead = new Vector3(resizeCoeff, resizeCoeff, resizeCoeff);
+                }
+            }
+            spherePrefab.transform.localScale = scaleOfBead;
+            for(int i=0; i < childBeadsControllers.Count; i++)
+            {
+                childBeadsControllers[i].scale = scaleOfBead;
+            }
 
             radiusZ = minRadius * 3;
             radiusX = radiusZ * Mathf.Tan(Mathf.PI/12);
             radiusY = radiusZ * Mathf.Tan(Mathf.PI/8);
             
+            Debug.Log("[BeadsController] Min radius = " + minRadius.ToString() + " rZ=" + radiusZ.ToString() + " rY=" + radiusY.ToString() + " rX=" + radiusX.ToString()+
+                    " radiusOfBead="+radiusOfBead.ToString()+" scaleOfBead="+scaleOfBead.ToString()+" reqFadius="+reqRadiusOfBead.ToString());
+
+            InitAngleTable(reqRadiusOfBead);
+
+        }
+
+        private float LengthOfEllipse(float rX, float rY, float rZ)
+        {
+            float a = Mathf.Sqrt(Mathf.Pow(rZ, 2.0f)+Mathf.Pow(rY, 2.0f));
+            float b = rX;
+
+            return (Mathf.PI*(a+b)*(Mathf.Abs(1.0f+(3.0f*Mathf.Pow((a-b)/(a+b),2.0f))/(10.0f+Mathf.Sqrt(4.0f-3.0f*Mathf.Pow((a-b)/(a+b),2.0f))))));
+
+        }
+
+        private void InitAngleTable(float reqRadius)
+        {
+            anglesTable.Clear();
+            float reqDistance = reqRadius * 2.01f;
+            float curAngle = Mathf.PI / 2;
+            float nextAngle = curAngle;
+            float step = 2.0f * Mathf.PI / ((length + freeCount)*10.0f);
+            anglesTable.Add(curAngle);
+            Vector3 curPosition = getPositionByAngle(curAngle);
+            float dist = 0.0f;
+            
+            Debug.Log("[BeadController] reqDist="+reqDistance.ToString()+" anglesTable = ");
+            for (int i=1; i <= (length+freeCount); i++)
+            {
+                do
+                {
+                    nextAngle -= step;
+                    dist = Vector3.Distance(getPositionByAngle(nextAngle), curPosition);
+                }
+                while (dist < reqDistance);
+                
+                curAngle = nextAngle;
+                curPosition = getPositionByAngle(curAngle);
+                anglesTable.Add(curAngle);
+                Debug.Log("angle = " + curAngle+" dist="+dist+" i="+i);
+            }
         }
 
         private float checkAndGetRadius(float radiusForCheck, float minRadius)
@@ -148,6 +218,11 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
 
         public float getAngleForPosition(int numberOfPosition)
         {
+            if (anglesTable.Contains(numberOfPosition))
+            {
+                return anglesTable[numberOfPosition];
+            }
+
             return (Mathf.PI / 2 - numberOfPosition * (2 * Mathf.PI / (length + freeCount)));
         }
 
@@ -218,7 +293,6 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
                 if (curBeadForMove.positionIndex == 0 && curBeadForMove != lastMovedBead)
                 {
                     curBeadForMove.StartWalkToPosition(maxPosition);
-                    Debug.Log("[BeadController] Start walking to " + maxPosition);
                     lastMovedBead = curBeadForMove;
                     if (countToStartTick > 0)
                     {
@@ -356,20 +430,18 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
                 OneBeadController childController = sphere.GetComponent<OneBeadController>();
                 if (placeActived)
                 {
-                    Debug.Log("[BeadsController] Add active sphere to position " + numberOfPosition);
                     sphere.SetActive(true);
                 }
                 else
                 {
-                    Debug.Log("[BeadsController] Add INACTIVE sphere to position " + numberOfPosition);
                     sphere.SetActive(false);
                 }
                 sphere.transform.Translate(positionToPlace - sphere.transform.position);
                 childController.Init(this, i, numberOfPosition);
+                childController.scale = scaleOfBead;
                 childBeadsControllers.Add(childController);
                 last.next = childController;
                 last = childController;
-
             }
 
             last.next = nextOfLast;
