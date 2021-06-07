@@ -44,6 +44,7 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
             GameManager.Instance.OnClickForTick.AddListener(Tick);
             GameManager.Instance.settings.OnCircleLengthChanged.AddListener(HandleCircleLengthChange);
             GameManager.Instance.OnGameRestarted.AddListener(HandleGameRestart);
+            GameManager.Instance.settings.OnSettingsChanged.AddListener(HandleGameSettingChange);
         }
 
         // Start is called before the first frame update
@@ -482,9 +483,19 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
 
         private void HandleGameRestart()
         {
+            ResetBeads();
+        }
+
+        private void ResetBeads() 
+        { 
             InitBeads();
             countToStartTick = 0;
             lastMovedBead = null;
+        }
+
+        private void HandleGameSettingChange()
+        {
+            ResetBeads();
         }
 
     }

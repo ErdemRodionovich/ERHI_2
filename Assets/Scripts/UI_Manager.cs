@@ -49,15 +49,16 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90 {
 
         private void Awake()
         {
-
+            GameManager.Instance.OnLanguageChanged.AddListener(UpdateTexts);
+            GameManager.Instance.OnGameStarted.AddListener(HandleGameStart);
+            GameManager.Instance.OnTick.AddListener(HandleTick);
+            GameManager.Instance.settings.OnSettingsChanged.AddListener(ReadSettings);
         }
 
         // Start is called before the first frame update
         void Start()
         {
-            GameManager.Instance.OnLanguageChanged.AddListener(UpdateTexts);
-            GameManager.Instance.OnGameStarted.AddListener(HandleGameStart);
-            GameManager.Instance.OnTick.AddListener(HandleTick);
+            
         }
 
         // Update is called once per frame
@@ -68,10 +69,6 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90 {
 
         private void OnEnable()
         {
-            if (!initialized)
-            {
-                InitMenu();
-            }
             ReadSettings();
         }
 
@@ -84,6 +81,11 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90 {
 
         private void ReadSettings()
         {
+            if (!initialized)
+            {
+                InitMenu();
+            }
+
             circleLengthValue = GameManager.Instance.settings.lengthOfCircle;
             circlesCount = GameManager.Instance.settings.countOfCircles;
             vibrateOnTick = GameManager.Instance.settings.vibrateOnClick;
@@ -159,6 +161,10 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90 {
             if(soundOfCircleName != GameManager.Instance.settings.audioOfCircleName)
             {
                 GameManager.Instance.settings.audioOfCircleName = soundOfCircleName;
+            }
+            if(language != GameManager.Instance.settings.language)
+            {
+                GameManager.Instance.settings.language = language;
             }
 
             GameManager.Instance.settings.SaveSettings();
@@ -320,14 +326,22 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90 {
 
         public void OnLanguageValueChanged()
         {
+            bool foundLang = false;
             foreach(KeyValuePair<LanguageDictionary.Languages, TMP_Dropdown.OptionData>keyValue in languageOptions)
             {
                 if(languageDropdown.options[languageDropdown.value] == keyValue.Value)
                 {
                     language = keyValue.Key;
+                    foundLang = true;
                     break;
                 }
             }
+
+            if (!foundLang)
+            {
+                Debug.LogError("[UI_Manager] Cannot find language!");
+            }
+
             UpdateTexts();
         }
 

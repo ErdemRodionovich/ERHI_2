@@ -155,7 +155,9 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
             {
                 currentLanguage = value;
                 if (OnLanguageChanged != null)
+                {
                     OnLanguageChanged.Invoke();
+                }
             }
         }
 

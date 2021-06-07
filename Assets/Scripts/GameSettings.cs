@@ -80,13 +80,34 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
         public Events.GameSettingChanged OnSettingsChanged = new Events.GameSettingChanged();
         public Events.CircleLengthChanged OnCircleLengthChanged = new Events.CircleLengthChanged();
 
+        private class Settings
+        {
+            public int lengthOfCircle;
+            public int countOfCircles;
+            public bool vibrateOnClick;
+            public bool playSoundOnTick;
+            public bool playSoundOnCircle;
+            public string audioOfTickName;
+            public string audioOfCircleName;
+            public string language;
+        }
+
         public void SaveSettings()
         {
-            //TODO
-            string settingString = JsonUtility.ToJson(this);
+            Settings sets = new Settings();
+
+            sets.lengthOfCircle = lengthOfCircle;
+            sets.countOfCircles = countOfCircles;
+            sets.vibrateOnClick = vibrateOnClick;
+            sets.playSoundOnTick = playSoundOnTick;
+            sets.playSoundOnCircle = playSoundOnCircle;
+            sets.audioOfTickName = audioOfTickName;
+            sets.audioOfCircleName = audioOfCircleName;
+            sets.language = language.ToString();
+
+            string settingString = JsonUtility.ToJson(sets);
             PlayerPrefs.SetString("GameSettings", settingString);
             PlayerPrefs.Save();
-            Debug.Log("[GameSettings] Settings saved. JSON:"+settingString);
         }
 
         public void ReadSettings()
@@ -94,19 +115,40 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
             if (PlayerPrefs.HasKey("GameSettings"))
             {
                 string settingsString = PlayerPrefs.GetString("GameSettings");
-                JsonUtility.FromJsonOverwrite(settingsString, this);
+                Settings sets = new Settings();
+                JsonUtility.FromJsonOverwrite(settingsString, sets);
 
-                if(OnSettingsChanged != null)
+                if (sets.lengthOfCircle > 0
+                    && sets.countOfCircles > 0
+                    && sets.audioOfTickName.Length > 0
+                    && sets.audioOfCircleName.Length > 0
+                    && (sets.language == LanguageDictionary.Languages.English.ToString()
+                        || sets.language == LanguageDictionary.Languages.Buryat.ToString()
+                        || sets.language == LanguageDictionary.Languages.Russian.ToString()))
                 {
-                    OnSettingsChanged.Invoke();
+                    circleLength = sets.lengthOfCircle;
+                    circlesCount = sets.countOfCircles;
+                    vibrateOnTick = sets.vibrateOnClick;
+                    soundOnTick = sets.playSoundOnTick;
+                    soundOnCircle = sets.playSoundOnCircle;
+                    soundOfTickName = sets.audioOfTickName;
+                    soundOfCircleName = sets.audioOfCircleName;
+                    if (sets.language.Equals(LanguageDictionary.Languages.English.ToString()))
+                        language = LanguageDictionary.Languages.English;
+                    else if(sets.language.Equals(LanguageDictionary.Languages.Buryat.ToString()))
+                        language = LanguageDictionary.Languages.Buryat;
+                    else if (sets.language.Equals(LanguageDictionary.Languages.Russian.ToString()))
+                        language = LanguageDictionary.Languages.Russian;
+
+                    if (OnSettingsChanged != null)
+                    {
+                        OnSettingsChanged.Invoke();
+                    }
+                    if(GameManager.Instance.OnLanguageChanged != null)
+                    {
+                        GameManager.Instance.OnLanguageChanged.Invoke();
+                    }
                 }
-
-                Debug.Log("[GameSettings] Settings readed. JSON:"+settingsString);
-
-            }
-            else
-            {
-                Debug.Log("[GameSettings] Setting NOT readed.");
             }
         }
 

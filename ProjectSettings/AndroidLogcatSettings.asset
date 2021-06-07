@@ -1,10 +1,10 @@
 {
-    "m_SelectedDeviceId": "R58M442SAYF",
+    "m_SelectedDeviceId": "4200c1bbf29b9200",
     "m_SelectedPackage": {
-        "deviceId": "R58M442SAYF",
-        "name": "org.erhi",
-        "processId": 13870,
-        "exited": true
+        "deviceId": "",
+        "name": "",
+        "processId": 0,
+        "exited": false
     },
     "m_SelectedPriority": 0,
     "m_KnownPackagesForSerialization": [
@@ -42,6 +42,18 @@
             "deviceId": "R58M442SAYF",
             "name": "org.erhi",
             "processId": 13870,
+            "exited": true
+        },
+        {
+            "deviceId": "4200c1bbf29b9200",
+            "name": "org.erhi",
+            "processId": 5427,
+            "exited": true
+        },
+        {
+            "deviceId": "4200c1bbf29b9200",
+            "name": "org.erhi",
+            "processId": 6853,
             "exited": true
         }
     ],
