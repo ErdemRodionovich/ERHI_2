@@ -46,6 +46,10 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90 {
         [SerializeField] private TextMeshProUGUI soundOnCircleItemLabel;
         [SerializeField] private TextMeshProUGUI aboutProgramCaption;
         [SerializeField] private GameObject aboutGroup;
+        [SerializeField] private GameObject quitQuestionGroup;
+        [SerializeField] private TextMeshProUGUI quitText;
+        [SerializeField] private TextMeshProUGUI okQuitText;
+        [SerializeField] private TextMeshProUGUI noQuitText;
 
         private void Awake()
         {
@@ -64,7 +68,25 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90 {
         // Update is called once per frame
         void Update()
         {
-            
+            if (Input.GetKeyUp(KeyCode.Escape))
+            {
+                if (aboutGroup.activeInHierarchy)
+                {
+                    OnBackFromAboutButtonClicked();
+                }
+                else if (menu.activeInHierarchy)
+                {
+                    OnBackButtonClicked();
+                }
+                else if(!quitQuestionGroup.activeInHierarchy)
+                {
+                    quitQuestionGroup.SetActive(true);
+                }
+                else
+                {
+                    quitQuestionGroup.SetActive(false);
+                }
+            }
         }
 
         private void OnEnable()
@@ -392,6 +414,9 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90 {
             }
 
             aboutProgramCaption.text = GameManager.Instance.WordOnLanguage(language, "about profram");
+            quitText.text = GameManager.Instance.WordOnLanguage(language, "quit from ERHI");
+            okQuitText.text = GameManager.Instance.WordOnLanguage(language, "yes");
+            noQuitText.text = GameManager.Instance.WordOnLanguage(language, "no");
 
         }
 
@@ -570,6 +595,16 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90 {
         {
             countText.text = GameManager.Instance.settings.currentTick.ToString();
             circleText.text = GameManager.Instance.settings.currentCircle.ToString();
+        }
+
+        public void OnOkQuitButtonClicked()
+        {
+            GameManager.Instance.QuitFromERHI();
+        }
+
+        public void OnNoQuitButtonClicked()
+        {
+            quitQuestionGroup.SetActive(false);
         }
 
     }

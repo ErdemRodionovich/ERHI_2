@@ -126,7 +126,7 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
             radiusY = radiusZ * Mathf.Tan(Mathf.PI / 8);
             lengthEll = LengthOfEllipse(radiusX, radiusY, radiusZ);
                 
-            reqRadiusOfBead = lengthEll / ((length + freeCount+1)*2.0f);
+            reqRadiusOfBead = ((lengthEll*2.0f*Mathf.Sin(Mathf.PI/(length+freeCount)))/(2.0f*Mathf.PI / (length + freeCount))) / ((length + freeCount+1)*2.0f);
             float resizeCoeff = reqRadiusOfBead / radiusOfBead;
             if (resizeCoeff < 1.0f)
             {

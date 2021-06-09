@@ -204,6 +204,15 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
             
         }
 
+        public void QuitFromERHI()
+        {
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
+            Application.Quit();
+#endif
+        }
+
         public void OnApplicationQuit()
         {
             

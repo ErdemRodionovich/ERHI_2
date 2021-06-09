@@ -49,6 +49,9 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
             engDictionary.Add("Bells up", "Bells up");
             engDictionary.Add("about profram", "About program");
             engDictionary.Add("menu", "Menu");
+            engDictionary.Add("quit from ERHI", "Quit from ERHI?");
+            engDictionary.Add("yes", "Yes");
+            engDictionary.Add("no", "No");
 
             if (dictionary.ContainsKey(Languages.English))
             {
@@ -84,6 +87,9 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
             rusDictionary.Add("Bells up", "Перезвон приближающийся");
             rusDictionary.Add("about profram", "О программе");
             rusDictionary.Add("menu", "Меню");
+            rusDictionary.Add("quit from ERHI", "Выйти из ЭРХИ?");
+            rusDictionary.Add("yes", "Да");
+            rusDictionary.Add("no", "Нет");
 
             if (dictionary.ContainsKey(Languages.Russian))
             {
@@ -123,6 +129,10 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
             burDictionary.Add("Bells down", "Ханхинаан холодоhон");
             burDictionary.Add("Bells up", "Ханхинаан");
             burDictionary.Add("menu", "Меню");
+            burDictionary.Add("about profram", "Энэ программа тухай");
+            burDictionary.Add("quit from ERHI", "Гарха ЭРХИ сооhоо?");
+            burDictionary.Add("yes", "Гархам");
+            burDictionary.Add("no", "Yгэ");
 
             if (dictionary.ContainsKey(Languages.Buryat))
             {
@@ -130,7 +140,6 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
             }
 
             dictionary.Add(Languages.Buryat, burDictionary);
-            burDictionary.Add("about profram", "Энэ программа тухай");
         }
 
         public string Words(Languages language, string keyWord)
