@@ -254,7 +254,9 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
 
             if (settings.vibrateOnClick)
             {
+#if UNITY_ANDROID || UNITY_IOS
                 Handheld.Vibrate();
+#endif
             }
 
             if (settings.playSoundOnTick)
