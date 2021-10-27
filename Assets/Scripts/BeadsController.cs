@@ -133,6 +133,7 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
                 scaleOfBead = new Vector3(resizeCoeff, resizeCoeff, resizeCoeff);
             }
             
+            //
             spherePrefab.transform.localScale = scaleOfBead;
             for(int i=0; i < childBeadsControllers.Count; i++)
             {
