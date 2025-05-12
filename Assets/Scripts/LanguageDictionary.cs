@@ -47,7 +47,7 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
             engDictionary.Add("Short tick", "Short tick");
             engDictionary.Add("Bells down", "Bells down");
             engDictionary.Add("Bells up", "Bells up");
-            engDictionary.Add("about profram", "About program");
+            engDictionary.Add("about program", "About program");
             engDictionary.Add("menu", "Menu");
             engDictionary.Add("quit from ERHI", "Quit from ERHI?");
             engDictionary.Add("yes", "Yes");
@@ -85,7 +85,7 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
             rusDictionary.Add("Short tick", "Клик");
             rusDictionary.Add("Bells down", "Перезвон отдаляющийся");
             rusDictionary.Add("Bells up", "Перезвон приближающийся");
-            rusDictionary.Add("about profram", "О программе");
+            rusDictionary.Add("about program", "О программе");
             rusDictionary.Add("menu", "Меню");
             rusDictionary.Add("quit from ERHI", "Выйти из ЭРХИ?");
             rusDictionary.Add("yes", "Да");
@@ -129,7 +129,7 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
             burDictionary.Add("Bells down", "Ханхинаан холодоhон");
             burDictionary.Add("Bells up", "Ханхинаан");
             burDictionary.Add("menu", "Меню");
-            burDictionary.Add("about profram", "Энэ программа тухай");
+            burDictionary.Add("about program", "Энэ программа тухай");
             burDictionary.Add("quit from ERHI", "Гарха ЭРХИ сооhоо?");
             burDictionary.Add("yes", "Гархам");
             burDictionary.Add("no", "Yгэ");

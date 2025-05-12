@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-namespace BER_ERHI_c223901b45f74af0a160b6a254574b90 {
+namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
+{
 
     public class UI_Manager : MonoBehaviour
     {
@@ -62,7 +63,7 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90 {
         // Start is called before the first frame update
         void Start()
         {
-            
+
         }
 
         // Update is called once per frame
@@ -78,7 +79,7 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90 {
                 {
                     OnBackButtonClicked();
                 }
-                else if(!quitQuestionGroup.activeInHierarchy)
+                else if (!quitQuestionGroup.activeInHierarchy)
                 {
                     quitQuestionGroup.SetActive(true);
                 }
@@ -156,7 +157,7 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90 {
 
         private void SaveSettings()
         {
-            if(circleLengthValue != GameManager.Instance.settings.lengthOfCircle)
+            if (circleLengthValue != GameManager.Instance.settings.lengthOfCircle)
             {
                 GameManager.Instance.settings.lengthOfCircle = circleLengthValue;
             }
@@ -164,33 +165,33 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90 {
             {
                 GameManager.Instance.settings.countOfCircles = circlesCount;
             }
-            if(vibrateOnTick != GameManager.Instance.settings.vibrateOnClick)
+            if (vibrateOnTick != GameManager.Instance.settings.vibrateOnClick)
             {
                 GameManager.Instance.settings.vibrateOnClick = vibrateOnTick;
             }
-            if(soundOnTick != GameManager.Instance.settings.playSoundOnTick)
+            if (soundOnTick != GameManager.Instance.settings.playSoundOnTick)
             {
                 GameManager.Instance.settings.playSoundOnTick = soundOnTick;
             }
-            if(soundOnCircle != GameManager.Instance.settings.playSoundOnCircle)
+            if (soundOnCircle != GameManager.Instance.settings.playSoundOnCircle)
             {
                 GameManager.Instance.settings.playSoundOnCircle = soundOnCircle;
             }
-            if(soundOfTickName != GameManager.Instance.settings.audioOfTickName)
+            if (soundOfTickName != GameManager.Instance.settings.audioOfTickName)
             {
                 GameManager.Instance.settings.audioOfTickName = soundOfTickName;
             }
-            if(soundOfCircleName != GameManager.Instance.settings.audioOfCircleName)
+            if (soundOfCircleName != GameManager.Instance.settings.audioOfCircleName)
             {
                 GameManager.Instance.settings.audioOfCircleName = soundOfCircleName;
             }
-            if(language != GameManager.Instance.settings.language)
+            if (language != GameManager.Instance.settings.language)
             {
                 GameManager.Instance.settings.language = language;
             }
 
             GameManager.Instance.settings.SaveSettings();
-            if(GameManager.Instance.settings.OnSettingsChanged != null)
+            if (GameManager.Instance.settings.OnSettingsChanged != null)
             {
                 GameManager.Instance.settings.OnSettingsChanged.Invoke();
             }
@@ -245,14 +246,17 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90 {
         }
         public void OnCircleLengthPlusButtonClicked()
         {
-            circleLengthValue++;
+            if (circleLengthValue < 10000)
+            {
+                circleLengthValue++;
+            }
             UpdateCircleLengthText();
         }
 
         public void OnCircleLengthValueChanged()
         {
             int editedCircleLength = int.Parse(circleLength.text);
-            if(editedCircleLength < 1)
+            if (editedCircleLength < 1 || editedCircleLength > 10000)
             {
                 UpdateCircleLengthText();
             }
@@ -261,10 +265,10 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90 {
                 circleLengthValue = editedCircleLength;
             }
         }
-        
+
         public void OnNumberOfCirclesMinusButtonClicked()
         {
-            if(circlesCount > 1)
+            if (circlesCount > 1)
             {
                 circlesCount--;
             }
@@ -276,23 +280,23 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90 {
             circlesCount++;
             UpdateNumberOfCirclesText();
         }
-        
+
         public void OnNumberOfCirclesValueChanged()
         {
             int editedNumberOfCircles = int.Parse(numberOfCircles.text);
-            if(editedNumberOfCircles < 1)
+            if (editedNumberOfCircles < 1)
             {
                 UpdateNumberOfCirclesText();
             }
             else
             {
                 circlesCount = editedNumberOfCircles;
-            }            
+            }
         }
 
         public void OnVibrateChanged()
         {
-            if(vibrateSlider.value == 1.0f)
+            if (vibrateSlider.value == 1.0f)
             {
                 vibrateOnTick = true;
             }
@@ -308,9 +312,9 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90 {
 
             if (!languageOptions.ContainsKey(language))
             {
-                Debug.LogError("[UI_Manager] Language not found! " + language+" count of options: "+languageOptions.Count);
+                Debug.LogError("[UI_Manager] Language not found! " + language + " count of options: " + languageOptions.Count);
 
-                foreach(KeyValuePair<LanguageDictionary.Languages, TMP_Dropdown.OptionData>keyValue in languageOptions)
+                foreach (KeyValuePair<LanguageDictionary.Languages, TMP_Dropdown.OptionData> keyValue in languageOptions)
                 {
                     Debug.Log("[UI_Manager] Lang options: " + keyValue.Key + " --- " + keyValue.Value);
                 }
@@ -328,7 +332,7 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90 {
         {
             languageOptions.Clear();
             languageDropdown.options.Clear();
-            
+
             TMP_Dropdown.OptionData engLanguageOption = new TMP_Dropdown.OptionData();
             engLanguageOption.text = "English";
             languageDropdown.options.Add(engLanguageOption);
@@ -349,9 +353,9 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90 {
         public void OnLanguageValueChanged()
         {
             bool foundLang = false;
-            foreach(KeyValuePair<LanguageDictionary.Languages, TMP_Dropdown.OptionData>keyValue in languageOptions)
+            foreach (KeyValuePair<LanguageDictionary.Languages, TMP_Dropdown.OptionData> keyValue in languageOptions)
             {
-                if(languageDropdown.options[languageDropdown.value] == keyValue.Value)
+                if (languageDropdown.options[languageDropdown.value] == keyValue.Value)
                 {
                     language = keyValue.Key;
                     foundLang = true;
@@ -380,13 +384,13 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90 {
             menuCaption.text = GameManager.Instance.WordOnLanguage(language, "menu");
             cancelCaption.text = GameManager.Instance.WordOnLanguage(language, "cancel");
 
-            foreach(KeyValuePair<string, TMP_Dropdown.OptionData>keyValue in onClickAudioList)
+            foreach (KeyValuePair<string, TMP_Dropdown.OptionData> keyValue in onClickAudioList)
             {
                 keyValue.Value.text = GameManager.Instance.WordOnLanguage(language, keyValue.Key);
             }
             soundOnClickDropdown.RefreshShownValue();
-            
-            foreach(KeyValuePair<string, TMP_Dropdown.OptionData>keyValue in onCircleAudioList)
+
+            foreach (KeyValuePair<string, TMP_Dropdown.OptionData> keyValue in onCircleAudioList)
             {
                 keyValue.Value.text = GameManager.Instance.WordOnLanguage(language, keyValue.Key);
             }
@@ -413,7 +417,7 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90 {
                     break;
             }
 
-            aboutProgramCaption.text = GameManager.Instance.WordOnLanguage(language, "about profram");
+            aboutProgramCaption.text = GameManager.Instance.WordOnLanguage(language, "about program");
             quitText.text = GameManager.Instance.WordOnLanguage(language, "quit from ERHI");
             okQuitText.text = GameManager.Instance.WordOnLanguage(language, "yes");
             noQuitText.text = GameManager.Instance.WordOnLanguage(language, "no");
@@ -422,7 +426,7 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90 {
 
         public void OnPlaySoundOnClickChanged()
         {
-            if(playSoundOnTickSlider.value == 1.0f)
+            if (playSoundOnTickSlider.value == 1.0f)
             {
                 soundOnTick = true;
             }
@@ -460,7 +464,7 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90 {
         {
             soundOfTickName = GameManager.Instance.settings.audioOfTickName;
 
-            if(soundOfTickName.Length != 0 && onClickAudioList.ContainsKey(soundOfTickName))
+            if (soundOfTickName.Length != 0 && onClickAudioList.ContainsKey(soundOfTickName))
             {
                 soundOnClickDropdown.SetValueWithoutNotify(
                     soundOnClickDropdown.options.IndexOf(
@@ -470,7 +474,7 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90 {
             }
             else
             {
-                foreach(KeyValuePair<string, TMP_Dropdown.OptionData> keyValue in onClickAudioList)
+                foreach (KeyValuePair<string, TMP_Dropdown.OptionData> keyValue in onClickAudioList)
                 {
                     soundOfTickName = keyValue.Key;
                     soundOnClickDropdown.SetValueWithoutNotify(soundOnClickDropdown.options.IndexOf(keyValue.Value));
@@ -483,11 +487,11 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90 {
         public void OnSoundOnClickValueChanged()
         {
             TMP_Dropdown.OptionData curOpt = soundOnClickDropdown.options[soundOnClickDropdown.value];
-            
+
             bool findClip = false;
-            foreach(KeyValuePair<string, TMP_Dropdown.OptionData>keyValue in onClickAudioList)
+            foreach (KeyValuePair<string, TMP_Dropdown.OptionData> keyValue in onClickAudioList)
             {
-                if(keyValue.Value == curOpt)
+                if (keyValue.Value == curOpt)
                 {
                     findClip = true;
                     AudioClip curAudio = GameManager.Instance.OnClickPlayList.GetAudioByName(keyValue.Key);
@@ -499,13 +503,13 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90 {
 
             if (!findClip)
             {
-                Debug.LogError("[UI_Manager] Cannot find audio in play on click play list! Option text '"+curOpt.text+"'");
+                Debug.LogError("[UI_Manager] Cannot find audio in play on click play list! Option text '" + curOpt.text + "'");
             }
         }
 
         public void OnPlaySoundOnCircleValueChanged()
         {
-            if(playSoundOnCircleSlider.value == 1.0f)
+            if (playSoundOnCircleSlider.value == 1.0f)
             {
                 soundOnCircle = true;
             }
@@ -520,9 +524,9 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90 {
             onCircleAudioList.Clear();
             soundOnCircleDropdown.options.Clear();
 
-            if(GameManager.Instance.OnCirclePlayList != null)
+            if (GameManager.Instance.OnCirclePlayList != null)
             {
-                for(int i=0; i < GameManager.Instance.OnCirclePlayList.Count; i++)
+                for (int i = 0; i < GameManager.Instance.OnCirclePlayList.Count; i++)
                 {
                     TMP_Dropdown.OptionData opt = new TMP_Dropdown.OptionData();
                     string clipName = GameManager.Instance.OnCirclePlayList.GetNameOfAudio(i);
@@ -537,7 +541,7 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90 {
         {
             soundOfCircleName = GameManager.Instance.settings.audioOfCircleName;
 
-            if(soundOfCircleName.Length > 0 && onCircleAudioList.ContainsKey(soundOfCircleName))
+            if (soundOfCircleName.Length > 0 && onCircleAudioList.ContainsKey(soundOfCircleName))
             {
                 soundOnCircleDropdown.SetValueWithoutNotify(
                     soundOnCircleDropdown.options.IndexOf(
@@ -547,7 +551,7 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90 {
             }
             else
             {
-                foreach(KeyValuePair<string, TMP_Dropdown.OptionData>keyValue in onCircleAudioList)
+                foreach (KeyValuePair<string, TMP_Dropdown.OptionData> keyValue in onCircleAudioList)
                 {
                     soundOfCircleName = keyValue.Key;
                     soundOnCircleDropdown.SetValueWithoutNotify(soundOnCircleDropdown.options.IndexOf(keyValue.Value));
@@ -562,9 +566,9 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90 {
             TMP_Dropdown.OptionData curOpt = soundOnCircleDropdown.options[soundOnCircleDropdown.value];
 
             bool findClip = false;
-            foreach(KeyValuePair<string, TMP_Dropdown.OptionData>keyValue in onCircleAudioList)
+            foreach (KeyValuePair<string, TMP_Dropdown.OptionData> keyValue in onCircleAudioList)
             {
-                if(keyValue.Value == curOpt)
+                if (keyValue.Value == curOpt)
                 {
                     findClip = true;
                     AudioClip curClip = GameManager.Instance.OnCirclePlayList.GetAudioByName(keyValue.Key);
@@ -576,7 +580,7 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90 {
 
             if (!findClip)
             {
-                Debug.LogError("[UI_Manager] Cannot find audio clip in play on circle play list! Option text '"+curOpt.text+"'");
+                Debug.LogError("[UI_Manager] Cannot find audio clip in play on circle play list! Option text '" + curOpt.text + "'");
             }
 
         }

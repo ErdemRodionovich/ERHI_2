@@ -35,20 +35,26 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
         }
 
         private Vector3 scaleOfSphere = new Vector3(1.0f, 1.0f, 1.0f);
+        private bool scaleSetted = false;
         bool needChangeScale = false;
         public Vector3 scale
         {
             get { return scaleOfSphere; }
-            set { 
+            set
+            {
                 needChangeScale = true;
                 scaleOfSphere = value;
+                scaleSetted = true;
             }
         }
 
         // Start is called before the first frame update
         void Start()
         {
-            scaleOfSphere = gameObject.transform.localScale;
+            if (!scaleSetted)
+            {
+                scaleOfSphere = gameObject.transform.localScale;
+            }
         }
 
         // Update is called once per frame
@@ -59,7 +65,7 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
                 gameObject.transform.localScale = scaleOfSphere;
                 needChangeScale = false;
             }
-            
+
             if (stateOfBead == allStates.Moving)
             {
                 WalkToNextStep();
@@ -89,7 +95,8 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
             prevBeadStartMovingTime = parentController.TimeOfMove;
         }
 
-        private void StartWalk(int newPositionNumber) {
+        private void StartWalk(int newPositionNumber)
+        {
 
             if (positionNumber != newPositionNumber)
             {
@@ -120,7 +127,7 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
         {
             movingDuration += Time.deltaTime;
             float partOfDistance = movingDuration / parentController.TimeOfMove;
-            if(partOfDistance > 1.0f)
+            if (partOfDistance > 1.0f)
             {
                 partOfDistance = 1.0f;
             }
@@ -189,7 +196,7 @@ namespace BER_ERHI_c223901b45f74af0a160b6a254574b90
             }
             else
             {
-                Debug.LogError("[OneBeadController] nextBead is NULL. OnStartMoving. position number:"+positionNumber+" number:"+number);
+                Debug.LogError("[OneBeadController] nextBead is NULL. OnStartMoving. position number:" + positionNumber + " number:" + number);
             }
         }
 
