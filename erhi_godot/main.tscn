@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://k6timqto44u3"]
+
+[ext_resource type="PackedScene" uid="uid://dakgmfq6fyohb" path="res://beads_controller.tscn" id="1_ig7tw"]
+
+[node name="Main" type="Node3D"]
+
+[node name="BeadsController" parent="." instance=ExtResource("1_ig7tw")]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.871907, 0.489672, 0, -0.489672, 0.871907, 0, 5.46314, 34.6938)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]

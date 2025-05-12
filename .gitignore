@@ -71,3 +71,22 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /erhi_unity/[Aa]ssets/[Ss]treamingAssets/aa.meta
 /erhi_unity/[Aa]ssets/[Ss]treamingAssets/aa/*
+
+# Godot 4+ specific ignores
+erhi_godot/.godot/
+erhi_godot/.nomedia
+
+# Godot-specific ignores
+erhi_godot/.import/
+erhi_godot/export.cfg
+erhi_godot/export_credentials.cfg
+
+# Imported translations (automatically generated from CSV files)
+erhi_godot/**/*.translation
+
+# Mono-specific ignores
+erhi_godot/.mono/
+erhi_godot/data_*/
+erhi_godot/mono_crash.*.json
+erhi_godot/build/
+erhi_godot/android/

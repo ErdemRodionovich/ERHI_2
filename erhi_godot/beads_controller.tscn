@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://dakgmfq6fyohb"]
+
+[ext_resource type="Script" uid="uid://l2cj1qek0ix0" path="res://beads_controller.gd" id="1_4rpup"]
+[ext_resource type="PackedScene" uid="uid://dvnkty7wlbkr3" path="res://bead.tscn" id="2_anyfl"]
+
+[sub_resource type="Curve3D" id="Curve3D_4rpup"]
+
+[node name="BeadsController" type="Node3D"]
+script = ExtResource("1_4rpup")
+Bead_scene = ExtResource("2_anyfl")
+
+[node name="Path3D" type="Path3D" parent="."]
+curve = SubResource("Curve3D_4rpup")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
