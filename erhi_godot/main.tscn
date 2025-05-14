@@ -9,7 +9,7 @@ script = ExtResource("1_0xm2m")
 [node name="BeadsController" parent="." instance=ExtResource("1_ig7tw")]
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.871907, 0.489672, 0, -0.489672, 0.871907, 0, 2.09283, 19.9952)
+transform = Transform3D(1, 0, 0, 0, 0.498503, 0.866888, 0, -0.866888, 0.498503, 0, 10.28, 10.9353)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.308868, 0.951105, 0, -0.951105, 0.308868, 0, 0, 0)
