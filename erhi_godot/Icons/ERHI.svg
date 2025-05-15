@@ -42,15 +42,19 @@
        id="g3"
        transform="translate(62.546319,107.35398)">
       <rect
-         style="opacity:0.977841;fill:#756460;fill-opacity:1;stroke-width:0.475001"
+         style="display:inline;opacity:0.977841;fill:#756460;fill-opacity:1;stroke-width:0.475001"
          id="rect1"
          width="55"
          height="55"
          x="14.953681"
-         y="13.64602" />
+         y="13.64602"
+         inkscape:export-filename="ERHI_432.png"
+         inkscape:export-xdpi="199.50545"
+         inkscape:export-ydpi="199.50545" />
       <g
          id="g2"
-         transform="translate(3.2358394,10.80336)">
+         transform="translate(3.2358394,10.80336)"
+         style="display:inline">
         <text
            xml:space="preserve"
            style="font-size:14.1111px;line-height:1.25;font-family:OpenSymbol;-inkscape-font-specification:'OpenSymbol, Normal';text-align:center;text-orientation:upright;text-anchor:middle;stroke-width:0.264583"
