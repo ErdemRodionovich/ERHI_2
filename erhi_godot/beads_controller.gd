@@ -6,7 +6,7 @@ var bead: Node3D
 var last_bead: Node3D
 var steps_to_forward: int = 0
 var vacant_places: Array[float]
-var normal_speed: float = 1.0
+var normal_speed: float = 0.5
 var speed: float = normal_speed
 var high_speed: float = 5.0
 var free_places_count: int = 5
@@ -44,6 +44,8 @@ func construct(count: int) -> void:
 	
 	place_of_last_bead = last_bead.progress_ratio
 	high_speed = curve.get_baked_length()
+	_set_speed(normal_speed)
+	_set_wait_time(normal_wait_time)
 	
 
 func add_vacant_place(place: float) -> void:

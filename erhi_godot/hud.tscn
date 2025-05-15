@@ -1,0 +1,198 @@
+[gd_scene load_steps=3 format=3 uid="uid://bya523y7lq566"]
+
+[ext_resource type="Theme" uid="uid://nuoxwu7ir08s" path="res://hud_theme.tres" id="1_37p78"]
+[ext_resource type="Script" uid="uid://c5x7bk6gxv6c6" path="res://hud.gd" id="2_64ctp"]
+
+[node name="HUD" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_37p78")
+script = ExtResource("2_64ctp")
+
+[node name="StepLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -19.0
+offset_top = 66.0
+offset_right = 21.0
+offset_bottom = 121.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 40
+text = "0"
+horizontal_alignment = 2
+
+[node name="CircleLabel" type="Label" parent="StepLabel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_right = 40.0
+offset_bottom = 23.0
+grow_horizontal = 0
+text = "0"
+
+[node name="TabContainer" type="TabContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 35
+current_tab = 0
+tabs_visible = false
+
+[node name="WelcomeScreen" type="VBoxContainer" parent="TabContainer"]
+layout_mode = 2
+alignment = 1
+metadata/_tab_index = 0
+
+[node name="Label" type="Label" parent="TabContainer/WelcomeScreen"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 80
+text = "ERHI"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MenuScreen" type="CenterContainer" parent="TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/MenuScreen"]
+layout_mode = 2
+
+[node name="ErhiLabel" type="Label" parent="TabContainer/MenuScreen/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "ERHI"
+horizontal_alignment = 1
+
+[node name="Menu" type="GridContainer" parent="TabContainer/MenuScreen/VBoxContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="CicrleLengthLabel" type="Label" parent="TabContainer/MenuScreen/VBoxContainer/Menu"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Circle length"
+
+[node name="CircleLengthEdit" type="LineEdit" parent="TabContainer/MenuScreen/VBoxContainer/Menu"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "20"
+alignment = 1
+
+[node name="CountOfCirclesLabel" type="Label" parent="TabContainer/MenuScreen/VBoxContainer/Menu"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Count of circles"
+
+[node name="CountOfCirclesCountEdit" type="LineEdit" parent="TabContainer/MenuScreen/VBoxContainer/Menu"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "3"
+alignment = 1
+max_length = 18
+
+[node name="SoundOnClickLabel" type="Label" parent="TabContainer/MenuScreen/VBoxContainer/Menu"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Sound on click"
+
+[node name="SoundOnClickButton" type="CheckButton" parent="TabContainer/MenuScreen/VBoxContainer/Menu"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+alignment = 1
+
+[node name="SoundOnCircleLabel" type="Label" parent="TabContainer/MenuScreen/VBoxContainer/Menu"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Sound on circle"
+
+[node name="SoundOnCircleButton" type="CheckButton" parent="TabContainer/MenuScreen/VBoxContainer/Menu"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+alignment = 1
+
+[node name="AboutButton" type="Button" parent="TabContainer/MenuScreen/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "About"
+
+[node name="AboutScreen" type="VBoxContainer" parent="TabContainer"]
+visible = false
+layout_mode = 2
+alignment = 1
+metadata/_tab_index = 2
+
+[node name="ErhiLabel" type="Label" parent="TabContainer/AboutScreen"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "ERHI"
+horizontal_alignment = 1
+
+[node name="AboutRichTextLabel" type="RichTextLabel" parent="TabContainer/AboutScreen"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+text = "
+This is a simple counter app.
+Support by email: [url=mailto:erhi.app@gmail.com]erhi.app@gmail.com[/url]
+ "
+fit_content = true
+horizontal_alignment = 1
+
+[node name="BackButton" type="Button" parent="TabContainer/AboutScreen"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Back"
+
+[node name="AuthorLabel" type="RichTextLabel" parent="TabContainer/AboutScreen"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+text = "© [url=https://erdemrodionovich.github.io/]Erdem Badluev[/url]"
+fit_content = true
+horizontal_alignment = 1
+
+[node name="MenuButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 7.0
+offset_right = 90.0
+offset_bottom = 59.0
+theme_override_font_sizes/font_size = 40
+text = "MENU"
+
+[node name="ResetButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -135.0
+offset_top = 7.0
+offset_right = -7.0
+offset_bottom = 70.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 40
+text = "RESET"
+
+[connection signal="editing_toggled" from="TabContainer/MenuScreen/VBoxContainer/Menu/CircleLengthEdit" to="." method="_on_circle_length_edit_editing_toggled"]
+[connection signal="text_submitted" from="TabContainer/MenuScreen/VBoxContainer/Menu/CircleLengthEdit" to="." method="_on_circle_length_edit_text_submitted"]
+[connection signal="editing_toggled" from="TabContainer/MenuScreen/VBoxContainer/Menu/CountOfCirclesCountEdit" to="." method="_on_count_of_circles_count_edit_editing_toggled"]
+[connection signal="text_submitted" from="TabContainer/MenuScreen/VBoxContainer/Menu/CountOfCirclesCountEdit" to="." method="_on_count_of_circles_count_edit_text_submitted"]
+[connection signal="toggled" from="TabContainer/MenuScreen/VBoxContainer/Menu/SoundOnClickButton" to="." method="_on_sound_on_click_button_toggled"]
+[connection signal="toggled" from="TabContainer/MenuScreen/VBoxContainer/Menu/SoundOnCircleButton" to="." method="_on_sound_on_circle_button_toggled"]
+[connection signal="pressed" from="TabContainer/MenuScreen/VBoxContainer/AboutButton" to="." method="_on_about_button_pressed"]
+[connection signal="meta_clicked" from="TabContainer/AboutScreen/AboutRichTextLabel" to="." method="_on_about_rich_text_label_meta_clicked"]
+[connection signal="pressed" from="TabContainer/AboutScreen/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="meta_clicked" from="TabContainer/AboutScreen/AuthorLabel" to="." method="_on_author_label_meta_clicked"]
+[connection signal="pressed" from="MenuButton" to="." method="_on_menu_button_pressed"]
+[connection signal="pressed" from="ResetButton" to="." method="_on_reset_button_pressed"]
