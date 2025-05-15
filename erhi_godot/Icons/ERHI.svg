@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4.1 (1:1.4.1+202503302257+93de688d07)"
+   sodipodi:docname="ERHI.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="1.4307099"
+     inkscape:cx="386.87089"
+     inkscape:cy="632.20365"
+     inkscape:window-width="1884"
+     inkscape:window-height="1011"
+     inkscape:window-x="36"
+     inkscape:window-y="32"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g3" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Слой 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g3"
+       transform="translate(62.546319,107.35398)">
+      <rect
+         style="opacity:0.977841;fill:#756460;fill-opacity:1;stroke-width:0.475001"
+         id="rect1"
+         width="55"
+         height="55"
+         x="14.953681"
+         y="13.64602" />
+      <g
+         id="g2"
+         transform="translate(3.2358394,10.80336)">
+        <text
+           xml:space="preserve"
+           style="font-size:14.1111px;line-height:1.25;font-family:OpenSymbol;-inkscape-font-specification:'OpenSymbol, Normal';text-align:center;text-orientation:upright;text-anchor:middle;stroke-width:0.264583"
+           x="39.491432"
+           y="28.507057"
+           id="text1"><tspan
+             sodipodi:role="line"
+             id="tspan1"
+             style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:14.1111px;font-family:'Noto Serif Lao';-inkscape-font-specification:'Noto Serif Lao, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264583"
+             x="39.491432"
+             y="28.507057">ЭРХИ</tspan></text>
+        <g
+           id="g1">
+          <circle
+             style="opacity:0.977841;fill:#f46f4b;fill-opacity:1;stroke-width:0.475001"
+             id="path1"
+             cx="24.780218"
+             cy="37.137634"
+             r="5" />
+          <circle
+             style="opacity:0.977841;fill:#f46f4b;fill-opacity:1;stroke-width:0.475001"
+             id="path1-6"
+             cx="39.217842"
+             cy="37.072544"
+             r="5" />
+          <circle
+             style="opacity:0.977841;fill:#f46f4b;fill-opacity:1;stroke-width:0.475001"
+             id="path1-0"
+             cx="53.655464"
+             cy="37.39468"
+             r="5" />
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

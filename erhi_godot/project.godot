@@ -11,16 +11,22 @@ config_version=5
 [application]
 
 config/name="ERHI"
+config/version="3.0.0"
 run/main_scene="uid://k6timqto44u3"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 boot_splash/image="uid://dowy118dsk7f2"
-config/icon="res://icon.svg"
+config/icon="uid://dxm5m2lid6omc"
 
 [display]
 
 window/size/viewport_width=648
 window/size/viewport_height=1152
 window/handheld/orientation=1
+
+[editor]
+
+movie_writer/movie_file="/media/data/Projects/unity_projects/ERHI 2/erhi_godot/build/play.avi"
+movie_writer/fps=30
 
 [input]
 
@@ -34,4 +40,5 @@ mouse_left={
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+textures/vram_compression/import_etc2_astc=true
 environment/defaults/default_clear_color=Color(0.458824, 0.392157, 0.376471, 1)

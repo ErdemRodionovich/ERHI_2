@@ -7,6 +7,7 @@ signal sound_on_circle_toggled(enabled: bool)
 signal reset
 
 func _ready() -> void:
+	$TabContainer/AboutScreen/VersionLabel.text = "v. " + ProjectSettings.get_setting("application/config/version")
 	$TabContainer.hide()
 
 func _check_and_update_circle_length(new_text: String) -> void:
