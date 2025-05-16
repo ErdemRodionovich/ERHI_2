@@ -24,8 +24,8 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
      inkscape:zoom="1.4307099"
-     inkscape:cx="386.87089"
-     inkscape:cy="632.20365"
+     inkscape:cx="386.87088"
+     inkscape:cy="632.20364"
      inkscape:window-width="1884"
      inkscape:window-height="1011"
      inkscape:window-x="36"
@@ -42,15 +42,25 @@
        id="g3"
        transform="translate(62.546319,107.35398)">
       <rect
-         style="display:inline;opacity:0.977841;fill:#756460;fill-opacity:1;stroke-width:0.475001"
+         style="opacity:0.977841;fill:none;stroke-width:0.475001"
+         id="rect2"
+         width="83"
+         height="83"
+         x="0.95368099"
+         y="-0.35398"
+         inkscape:export-filename="Foreground_ERHI_432.png"
+         inkscape:export-xdpi="132.20241"
+         inkscape:export-ydpi="132.20241" />
+      <rect
+         style="display:none;opacity:0.977841;fill:#756460;fill-opacity:1;stroke-width:0.475001"
          id="rect1"
          width="55"
          height="55"
          x="14.953681"
          y="13.64602"
-         inkscape:export-filename="ERHI_432.png"
-         inkscape:export-xdpi="199.50545"
-         inkscape:export-ydpi="199.50545" />
+         inkscape:export-filename="ERHI_512.png"
+         inkscape:export-xdpi="236.4509"
+         inkscape:export-ydpi="236.4509" />
       <g
          id="g2"
          transform="translate(3.2358394,10.80336)"

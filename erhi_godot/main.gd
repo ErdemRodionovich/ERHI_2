@@ -100,6 +100,8 @@ func _on_hud_sound_on_click_toggled(enabled: bool) -> void:
 	sound_on_click = enabled
 
 func _notification(what):
-	if what == NOTIFICATION_WM_CLOSE_REQUEST or what == NOTIFICATION_APPLICATION_PAUSED or what == NOTIFICATION_WM_GO_BACK_REQUEST:
+	if what == NOTIFICATION_WM_CLOSE_REQUEST or what == NOTIFICATION_WM_GO_BACK_REQUEST:
 		save_game()
 		get_tree().quit()
+	elif what == NOTIFICATION_APPLICATION_PAUSED:
+		save_game()
