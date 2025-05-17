@@ -20,14 +20,14 @@ func _check_and_update_circle_length(new_text: String) -> void:
 	circle_length_updated.emit(circle_length)
 
 func set_circle_length(circle_length: int) -> void:
-	$TabContainer/MenuScreen/VBoxContainer/Menu/CircleLengthEdit.text = str(circle_length)
+	$TabContainer/MenuScreen/Menu/CircleLengthEdit.text = str(circle_length)
 
 func _on_circle_length_edit_text_submitted(new_text: String) -> void:
 	_check_and_update_circle_length(new_text)
 
 
 func _on_circle_length_edit_editing_toggled(toggled_on: bool) -> void:
-	_check_and_update_circle_length($TabContainer/MenuScreen/VBoxContainer/Menu/CircleLengthEdit.text)
+	_check_and_update_circle_length($TabContainer/MenuScreen/Menu/CircleLengthEdit.text)
 
 
 func _check_and_update_count_of_circles(new_text: String) -> void:
@@ -37,7 +37,7 @@ func _check_and_update_count_of_circles(new_text: String) -> void:
 	count_of_circles_updated.emit(count_of_circles)
 
 func set_count_of_circles(count_of_circles: int) -> void:
-	$TabContainer/MenuScreen/VBoxContainer/Menu/CountOfCirclesCountEdit.text = str(count_of_circles)
+	$TabContainer/MenuScreen/Menu/CountOfCirclesCountEdit.text = str(count_of_circles)
 
 
 func _on_count_of_circles_count_edit_text_submitted(new_text: String) -> void:
@@ -45,7 +45,7 @@ func _on_count_of_circles_count_edit_text_submitted(new_text: String) -> void:
 
 
 func _on_count_of_circles_count_edit_editing_toggled(toggled_on: bool) -> void:
-	_check_and_update_count_of_circles($TabContainer/MenuScreen/VBoxContainer/Menu/CountOfCirclesCountEdit.text)
+	_check_and_update_count_of_circles($TabContainer/MenuScreen/Menu/CountOfCirclesCountEdit.text)
 
 
 func _on_sound_on_click_button_toggled(toggled_on: bool) -> void:
@@ -53,7 +53,7 @@ func _on_sound_on_click_button_toggled(toggled_on: bool) -> void:
 
 
 func set_sound_on_click(enabled: bool) -> void:
-	$TabContainer/MenuScreen/VBoxContainer/Menu/SoundOnClickButton.set_pressed_no_signal(enabled)
+	$TabContainer/MenuScreen/Menu/SoundOnClickButton.set_pressed_no_signal(enabled)
 
 
 func _on_sound_on_circle_button_toggled(toggled_on: bool) -> void:
@@ -61,7 +61,7 @@ func _on_sound_on_circle_button_toggled(toggled_on: bool) -> void:
 
 
 func set_sound_on_circle(enabled: bool) -> void:
-	$TabContainer/MenuScreen/VBoxContainer/Menu/SoundOnCircleButton.set_pressed_no_signal(enabled)
+	$TabContainer/MenuScreen/Menu/SoundOnCircleButton.set_pressed_no_signal(enabled)
 
 
 
@@ -106,7 +106,7 @@ func _on_save_history_button_toggled(toggled_on: bool) -> void:
 	save_history_toggled.emit(toggled_on)
 
 func set_save_history(enabled: bool) -> void:
-	$TabContainer/MenuScreen/VBoxContainer/Menu/SaveHistoryButton.set_pressed_no_signal(enabled)
+	$TabContainer/MenuScreen/Menu/SaveHistoryButton.set_pressed_no_signal(enabled)
 
 
 func _on_history_button_pressed() -> void:
@@ -114,10 +114,10 @@ func _on_history_button_pressed() -> void:
 	$TabContainer.current_tab = 3
 	
 func set_history(history) -> void:
-	$TabContainer/HistoryScreen/TodayHistoryLabel.text = "Today: " + str(history.get("today",0))
-	$TabContainer/HistoryScreen/ThisWeekHistoryLabel.text = "This week: " + str(history.get("week", 0))
-	$TabContainer/HistoryScreen/ThisMonthHistoryLabel.text = "This month: " + str(history.get("month", 0))
-	$TabContainer/HistoryScreen/ThisYearHistoryLabel.text = "This year: " + str(history.get("year", 0))
-	$TabContainer/HistoryScreen/OverallHistoryLabel.text = "Overall: " + str(history.get("overall", 0))
+	$TabContainer/HistoryScreen/Today/TodayHistoryLabel.text = str(history.get("today",0))
+	$TabContainer/HistoryScreen/Week/ThisWeekHistoryLabel.text = str(history.get("week", 0))
+	$TabContainer/HistoryScreen/Month/ThisMonthHistoryLabel.text = str(history.get("month", 0))
+	$TabContainer/HistoryScreen/Year/ThisYearHistoryLabel.text = str(history.get("year", 0))
+	$TabContainer/HistoryScreen/Overall/OverallHistoryLabel.text = str(history.get("overall", 0))
 	
 	

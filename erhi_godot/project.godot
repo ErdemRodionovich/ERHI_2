@@ -28,6 +28,10 @@ window/handheld/orientation=1
 movie_writer/movie_file="/media/data/Projects/unity_projects/ERHI 2/erhi_godot/build/play.avi"
 movie_writer/fps=30
 
+[gui]
+
+theme/custom_font="uid://i23su8soclpf"
+
 [input]
 
 mouse_left={

@@ -62,82 +62,86 @@ text = "ERHI"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MenuScreen" type="CenterContainer" parent="TabContainer"]
+[node name="MenuScreen" type="VBoxContainer" parent="TabContainer"]
 layout_mode = 2
+alignment = 1
 metadata/_tab_index = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/MenuScreen"]
-layout_mode = 2
-
-[node name="ErhiLabel" type="Label" parent="TabContainer/MenuScreen/VBoxContainer"]
+[node name="ErhiLabel" type="Label" parent="TabContainer/MenuScreen"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 70
 text = "ERHI"
 horizontal_alignment = 1
 
-[node name="Menu" type="GridContainer" parent="TabContainer/MenuScreen/VBoxContainer"]
+[node name="Menu" type="GridContainer" parent="TabContainer/MenuScreen"]
 layout_mode = 2
+size_flags_horizontal = 4
 columns = 2
 
-[node name="CicrleLengthLabel" type="Label" parent="TabContainer/MenuScreen/VBoxContainer/Menu"]
+[node name="CicrleLengthLabel" type="Label" parent="TabContainer/MenuScreen/Menu"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 45
-text = "Circle length"
+theme_override_font_sizes/font_size = 40
+text = "Length of a circle"
+horizontal_alignment = 2
 
-[node name="CircleLengthEdit" type="LineEdit" parent="TabContainer/MenuScreen/VBoxContainer/Menu"]
+[node name="CircleLengthEdit" type="LineEdit" parent="TabContainer/MenuScreen/Menu"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 45
 text = "20"
 alignment = 1
 
-[node name="CountOfCirclesLabel" type="Label" parent="TabContainer/MenuScreen/VBoxContainer/Menu"]
+[node name="CountOfCirclesLabel" type="Label" parent="TabContainer/MenuScreen/Menu"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 45
+theme_override_font_sizes/font_size = 40
 text = "Count of circles"
+horizontal_alignment = 2
 
-[node name="CountOfCirclesCountEdit" type="LineEdit" parent="TabContainer/MenuScreen/VBoxContainer/Menu"]
+[node name="CountOfCirclesCountEdit" type="LineEdit" parent="TabContainer/MenuScreen/Menu"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 45
 text = "3"
 alignment = 1
 max_length = 18
 
-[node name="SoundOnClickLabel" type="Label" parent="TabContainer/MenuScreen/VBoxContainer/Menu"]
+[node name="SoundOnClickLabel" type="Label" parent="TabContainer/MenuScreen/Menu"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 45
+theme_override_font_sizes/font_size = 40
 text = "Sound on click"
+horizontal_alignment = 2
 
-[node name="SoundOnClickButton" type="CheckButton" parent="TabContainer/MenuScreen/VBoxContainer/Menu"]
+[node name="SoundOnClickButton" type="CheckButton" parent="TabContainer/MenuScreen/Menu"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 45
 alignment = 1
 
-[node name="SoundOnCircleLabel" type="Label" parent="TabContainer/MenuScreen/VBoxContainer/Menu"]
+[node name="SoundOnCircleLabel" type="Label" parent="TabContainer/MenuScreen/Menu"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 45
+theme_override_font_sizes/font_size = 40
 text = "Sound on circle"
+horizontal_alignment = 2
 
-[node name="SoundOnCircleButton" type="CheckButton" parent="TabContainer/MenuScreen/VBoxContainer/Menu"]
+[node name="SoundOnCircleButton" type="CheckButton" parent="TabContainer/MenuScreen/Menu"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 45
 alignment = 1
 
-[node name="SaveHistoryLabel" type="Label" parent="TabContainer/MenuScreen/VBoxContainer/Menu"]
+[node name="SaveHistoryLabel" type="Label" parent="TabContainer/MenuScreen/Menu"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 45
+theme_override_font_sizes/font_size = 40
 text = "Save history"
+horizontal_alignment = 2
 
-[node name="SaveHistoryButton" type="CheckButton" parent="TabContainer/MenuScreen/VBoxContainer/Menu"]
+[node name="SaveHistoryButton" type="CheckButton" parent="TabContainer/MenuScreen/Menu"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 45
 alignment = 1
 
-[node name="HistoryButton" type="Button" parent="TabContainer/MenuScreen/VBoxContainer"]
+[node name="HistoryButton" type="Button" parent="TabContainer/MenuScreen"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 45
 text = "History"
 
-[node name="AboutButton" type="Button" parent="TabContainer/MenuScreen/VBoxContainer"]
+[node name="AboutButton" type="Button" parent="TabContainer/MenuScreen"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 45
 text = "About"
@@ -197,34 +201,84 @@ theme_override_font_sizes/font_size = 70
 text = "ERHI"
 horizontal_alignment = 1
 
-[node name="TodayHistoryLabel" type="Label" parent="TabContainer/HistoryScreen"]
+[node name="Today" type="HBoxContainer" parent="TabContainer/HistoryScreen"]
+layout_mode = 2
+alignment = 1
+
+[node name="TodayLabel" type="Label" parent="TabContainer/HistoryScreen/Today"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 55
-text = "Today: 0"
+text = "Today: "
 horizontal_alignment = 1
 
-[node name="ThisWeekHistoryLabel" type="Label" parent="TabContainer/HistoryScreen"]
+[node name="TodayHistoryLabel" type="Label" parent="TabContainer/HistoryScreen/Today"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 55
-text = "This week: 0"
+text = "0"
 horizontal_alignment = 1
 
-[node name="ThisMonthHistoryLabel" type="Label" parent="TabContainer/HistoryScreen"]
+[node name="Week" type="HBoxContainer" parent="TabContainer/HistoryScreen"]
+layout_mode = 2
+alignment = 1
+
+[node name="ThisWeekLabel" type="Label" parent="TabContainer/HistoryScreen/Week"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 55
-text = "This month: 0"
+text = "This week: "
 horizontal_alignment = 1
 
-[node name="ThisYearHistoryLabel" type="Label" parent="TabContainer/HistoryScreen"]
+[node name="ThisWeekHistoryLabel" type="Label" parent="TabContainer/HistoryScreen/Week"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 55
-text = "This year: 0"
+text = "0"
 horizontal_alignment = 1
 
-[node name="OverallHistoryLabel" type="Label" parent="TabContainer/HistoryScreen"]
+[node name="Month" type="HBoxContainer" parent="TabContainer/HistoryScreen"]
+layout_mode = 2
+alignment = 1
+
+[node name="ThisMonthLabel" type="Label" parent="TabContainer/HistoryScreen/Month"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 55
-text = "Overall: 0"
+text = "This month: "
+horizontal_alignment = 1
+
+[node name="ThisMonthHistoryLabel" type="Label" parent="TabContainer/HistoryScreen/Month"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 55
+text = "0"
+horizontal_alignment = 1
+
+[node name="Year" type="HBoxContainer" parent="TabContainer/HistoryScreen"]
+layout_mode = 2
+alignment = 1
+
+[node name="ThisYearLabel" type="Label" parent="TabContainer/HistoryScreen/Year"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 55
+text = "This year: "
+horizontal_alignment = 1
+
+[node name="ThisYearHistoryLabel" type="Label" parent="TabContainer/HistoryScreen/Year"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 55
+text = "0"
+horizontal_alignment = 1
+
+[node name="Overall" type="HBoxContainer" parent="TabContainer/HistoryScreen"]
+layout_mode = 2
+alignment = 1
+
+[node name="OverallLabel" type="Label" parent="TabContainer/HistoryScreen/Overall"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 55
+text = "Overall: "
+horizontal_alignment = 1
+
+[node name="OverallHistoryLabel" type="Label" parent="TabContainer/HistoryScreen/Overall"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 55
+text = "0"
 horizontal_alignment = 1
 
 [node name="BackButton" type="Button" parent="TabContainer/HistoryScreen"]
@@ -254,15 +308,15 @@ grow_horizontal = 0
 theme_override_font_sizes/font_size = 40
 text = "RESET"
 
-[connection signal="editing_toggled" from="TabContainer/MenuScreen/VBoxContainer/Menu/CircleLengthEdit" to="." method="_on_circle_length_edit_editing_toggled"]
-[connection signal="text_submitted" from="TabContainer/MenuScreen/VBoxContainer/Menu/CircleLengthEdit" to="." method="_on_circle_length_edit_text_submitted"]
-[connection signal="editing_toggled" from="TabContainer/MenuScreen/VBoxContainer/Menu/CountOfCirclesCountEdit" to="." method="_on_count_of_circles_count_edit_editing_toggled"]
-[connection signal="text_submitted" from="TabContainer/MenuScreen/VBoxContainer/Menu/CountOfCirclesCountEdit" to="." method="_on_count_of_circles_count_edit_text_submitted"]
-[connection signal="toggled" from="TabContainer/MenuScreen/VBoxContainer/Menu/SoundOnClickButton" to="." method="_on_sound_on_click_button_toggled"]
-[connection signal="toggled" from="TabContainer/MenuScreen/VBoxContainer/Menu/SoundOnCircleButton" to="." method="_on_sound_on_circle_button_toggled"]
-[connection signal="toggled" from="TabContainer/MenuScreen/VBoxContainer/Menu/SaveHistoryButton" to="." method="_on_save_history_button_toggled"]
-[connection signal="pressed" from="TabContainer/MenuScreen/VBoxContainer/HistoryButton" to="." method="_on_history_button_pressed"]
-[connection signal="pressed" from="TabContainer/MenuScreen/VBoxContainer/AboutButton" to="." method="_on_about_button_pressed"]
+[connection signal="editing_toggled" from="TabContainer/MenuScreen/Menu/CircleLengthEdit" to="." method="_on_circle_length_edit_editing_toggled"]
+[connection signal="text_submitted" from="TabContainer/MenuScreen/Menu/CircleLengthEdit" to="." method="_on_circle_length_edit_text_submitted"]
+[connection signal="editing_toggled" from="TabContainer/MenuScreen/Menu/CountOfCirclesCountEdit" to="." method="_on_count_of_circles_count_edit_editing_toggled"]
+[connection signal="text_submitted" from="TabContainer/MenuScreen/Menu/CountOfCirclesCountEdit" to="." method="_on_count_of_circles_count_edit_text_submitted"]
+[connection signal="toggled" from="TabContainer/MenuScreen/Menu/SoundOnClickButton" to="." method="_on_sound_on_click_button_toggled"]
+[connection signal="toggled" from="TabContainer/MenuScreen/Menu/SoundOnCircleButton" to="." method="_on_sound_on_circle_button_toggled"]
+[connection signal="toggled" from="TabContainer/MenuScreen/Menu/SaveHistoryButton" to="." method="_on_save_history_button_toggled"]
+[connection signal="pressed" from="TabContainer/MenuScreen/HistoryButton" to="." method="_on_history_button_pressed"]
+[connection signal="pressed" from="TabContainer/MenuScreen/AboutButton" to="." method="_on_about_button_pressed"]
 [connection signal="meta_clicked" from="TabContainer/AboutScreen/AboutRichTextLabel" to="." method="_on_about_rich_text_label_meta_clicked"]
 [connection signal="pressed" from="TabContainer/AboutScreen/BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="meta_clicked" from="TabContainer/AboutScreen/AuthorLabel" to="." method="_on_author_label_meta_clicked"]
