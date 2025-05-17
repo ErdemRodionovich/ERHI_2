@@ -5,6 +5,8 @@ signal count_of_circles_updated(count: int)
 signal sound_on_click_toggled(enabled: bool)
 signal sound_on_circle_toggled(enabled: bool)
 signal reset
+signal save_history_toggled(enabled: bool)
+signal request_to_update_history
 
 func _ready() -> void:
 	$TabContainer/AboutScreen/VersionLabel.text = "v. " + ProjectSettings.get_setting("application/config/version")
@@ -98,3 +100,24 @@ func set_circle(circle: int) -> void:
 
 func _on_reset_button_pressed() -> void:
 	reset.emit()
+
+
+func _on_save_history_button_toggled(toggled_on: bool) -> void:
+	save_history_toggled.emit(toggled_on)
+
+func set_save_history(enabled: bool) -> void:
+	$TabContainer/MenuScreen/VBoxContainer/Menu/SaveHistoryButton.set_pressed_no_signal(enabled)
+
+
+func _on_history_button_pressed() -> void:
+	request_to_update_history.emit()
+	$TabContainer.current_tab = 3
+	
+func set_history(history) -> void:
+	$TabContainer/HistoryScreen/TodayHistoryLabel.text = "Today: " + str(history.get("today",0))
+	$TabContainer/HistoryScreen/ThisWeekHistoryLabel.text = "This week: " + str(history.get("week", 0))
+	$TabContainer/HistoryScreen/ThisMonthHistoryLabel.text = "This month: " + str(history.get("month", 0))
+	$TabContainer/HistoryScreen/ThisYearHistoryLabel.text = "This year: " + str(history.get("year", 0))
+	$TabContainer/HistoryScreen/OverallHistoryLabel.text = "Overall: " + str(history.get("overall", 0))
+	
+	

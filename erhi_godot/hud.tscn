@@ -122,6 +122,21 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 45
 alignment = 1
 
+[node name="SaveHistoryLabel" type="Label" parent="TabContainer/MenuScreen/VBoxContainer/Menu"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 45
+text = "Save history"
+
+[node name="SaveHistoryButton" type="CheckButton" parent="TabContainer/MenuScreen/VBoxContainer/Menu"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 45
+alignment = 1
+
+[node name="HistoryButton" type="Button" parent="TabContainer/MenuScreen/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 45
+text = "History"
+
 [node name="AboutButton" type="Button" parent="TabContainer/MenuScreen/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 45
@@ -170,6 +185,53 @@ text = "© [url=https://erdemrodionovich.github.io/]Erdem Badluev[/url]"
 fit_content = true
 horizontal_alignment = 1
 
+[node name="HistoryScreen" type="VBoxContainer" parent="TabContainer"]
+visible = false
+layout_mode = 2
+alignment = 1
+metadata/_tab_index = 3
+
+[node name="ErhiLabel" type="Label" parent="TabContainer/HistoryScreen"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 70
+text = "ERHI"
+horizontal_alignment = 1
+
+[node name="TodayHistoryLabel" type="Label" parent="TabContainer/HistoryScreen"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 55
+text = "Today: 0"
+horizontal_alignment = 1
+
+[node name="ThisWeekHistoryLabel" type="Label" parent="TabContainer/HistoryScreen"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 55
+text = "This week: 0"
+horizontal_alignment = 1
+
+[node name="ThisMonthHistoryLabel" type="Label" parent="TabContainer/HistoryScreen"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 55
+text = "This month: 0"
+horizontal_alignment = 1
+
+[node name="ThisYearHistoryLabel" type="Label" parent="TabContainer/HistoryScreen"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 55
+text = "This year: 0"
+horizontal_alignment = 1
+
+[node name="OverallHistoryLabel" type="Label" parent="TabContainer/HistoryScreen"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 55
+text = "Overall: 0"
+horizontal_alignment = 1
+
+[node name="BackButton" type="Button" parent="TabContainer/HistoryScreen"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 45
+text = "Back"
+
 [node name="MenuButton" type="Button" parent="."]
 layout_mode = 0
 offset_left = 22.0
@@ -198,9 +260,12 @@ text = "RESET"
 [connection signal="text_submitted" from="TabContainer/MenuScreen/VBoxContainer/Menu/CountOfCirclesCountEdit" to="." method="_on_count_of_circles_count_edit_text_submitted"]
 [connection signal="toggled" from="TabContainer/MenuScreen/VBoxContainer/Menu/SoundOnClickButton" to="." method="_on_sound_on_click_button_toggled"]
 [connection signal="toggled" from="TabContainer/MenuScreen/VBoxContainer/Menu/SoundOnCircleButton" to="." method="_on_sound_on_circle_button_toggled"]
+[connection signal="toggled" from="TabContainer/MenuScreen/VBoxContainer/Menu/SaveHistoryButton" to="." method="_on_save_history_button_toggled"]
+[connection signal="pressed" from="TabContainer/MenuScreen/VBoxContainer/HistoryButton" to="." method="_on_history_button_pressed"]
 [connection signal="pressed" from="TabContainer/MenuScreen/VBoxContainer/AboutButton" to="." method="_on_about_button_pressed"]
 [connection signal="meta_clicked" from="TabContainer/AboutScreen/AboutRichTextLabel" to="." method="_on_about_rich_text_label_meta_clicked"]
 [connection signal="pressed" from="TabContainer/AboutScreen/BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="meta_clicked" from="TabContainer/AboutScreen/AuthorLabel" to="." method="_on_author_label_meta_clicked"]
+[connection signal="pressed" from="TabContainer/HistoryScreen/BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="MenuButton" to="." method="_on_menu_button_pressed"]
 [connection signal="pressed" from="ResetButton" to="." method="_on_reset_button_pressed"]
