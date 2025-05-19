@@ -79,10 +79,12 @@ size_flags_horizontal = 4
 columns = 2
 
 [node name="CicrleLengthLabel" type="Label" parent="TabContainer/MenuScreen/Menu"]
+custom_minimum_size = Vector2(360, 40)
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
 text = "Length of a circle"
 horizontal_alignment = 2
+autowrap_mode = 2
 
 [node name="CircleLengthEdit" type="LineEdit" parent="TabContainer/MenuScreen/Menu"]
 layout_mode = 2
@@ -91,10 +93,12 @@ text = "20"
 alignment = 1
 
 [node name="CountOfCirclesLabel" type="Label" parent="TabContainer/MenuScreen/Menu"]
+custom_minimum_size = Vector2(360, 40)
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
 text = "Count of circles"
 horizontal_alignment = 2
+autowrap_mode = 2
 
 [node name="CountOfCirclesCountEdit" type="LineEdit" parent="TabContainer/MenuScreen/Menu"]
 layout_mode = 2
@@ -104,10 +108,12 @@ alignment = 1
 max_length = 18
 
 [node name="SoundOnClickLabel" type="Label" parent="TabContainer/MenuScreen/Menu"]
+custom_minimum_size = Vector2(360, 40)
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
 text = "Sound on click"
 horizontal_alignment = 2
+autowrap_mode = 2
 
 [node name="SoundOnClickButton" type="CheckButton" parent="TabContainer/MenuScreen/Menu"]
 layout_mode = 2
@@ -115,10 +121,12 @@ theme_override_font_sizes/font_size = 45
 alignment = 1
 
 [node name="SoundOnCircleLabel" type="Label" parent="TabContainer/MenuScreen/Menu"]
+custom_minimum_size = Vector2(360, 40)
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
 text = "Sound on circle"
 horizontal_alignment = 2
+autowrap_mode = 2
 
 [node name="SoundOnCircleButton" type="CheckButton" parent="TabContainer/MenuScreen/Menu"]
 layout_mode = 2
@@ -126,15 +134,59 @@ theme_override_font_sizes/font_size = 45
 alignment = 1
 
 [node name="SaveHistoryLabel" type="Label" parent="TabContainer/MenuScreen/Menu"]
+custom_minimum_size = Vector2(360, 40)
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
 text = "Save history"
 horizontal_alignment = 2
+autowrap_mode = 2
 
 [node name="SaveHistoryButton" type="CheckButton" parent="TabContainer/MenuScreen/Menu"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 45
 alignment = 1
+
+[node name="LanguageLabel" type="Label" parent="TabContainer/MenuScreen/Menu"]
+custom_minimum_size = Vector2(360, 40)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Language"
+horizontal_alignment = 2
+autowrap_mode = 2
+
+[node name="MenuButton" type="MenuButton" parent="TabContainer/MenuScreen/Menu"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "English"
+item_count = 14
+popup/item_0/text = "English"
+popup/item_0/id = 0
+popup/item_1/text = "Русский"
+popup/item_1/id = 1
+popup/item_2/text = "Буряад"
+popup/item_2/id = 2
+popup/item_3/text = "Български"
+popup/item_3/id = 3
+popup/item_4/text = "Монгол"
+popup/item_4/id = 4
+popup/item_5/text = "བོད་མི"
+popup/item_5/id = 5
+popup/item_6/text = "中国人"
+popup/item_6/id = 6
+popup/item_7/text = "Español"
+popup/item_7/id = 7
+popup/item_8/text = "عربي"
+popup/item_8/id = 8
+popup/item_9/text = "Français"
+popup/item_9/id = 9
+popup/item_10/text = "Portugais"
+popup/item_10/id = 10
+popup/item_11/text = "Deutsch"
+popup/item_11/id = 11
+popup/item_12/text = "한국인"
+popup/item_12/id = 12
+popup/item_13/text = "日本語"
+popup/item_13/id = 13
 
 [node name="HistoryButton" type="Button" parent="TabContainer/MenuScreen"]
 layout_mode = 2
@@ -175,6 +227,8 @@ Support by email: [url=mailto:erhi.app@gmail.com]erhi.app@gmail.com[/url]
  "
 fit_content = true
 horizontal_alignment = 1
+text_direction = 1
+language = "en"
 
 [node name="BackButton" type="Button" parent="TabContainer/AboutScreen"]
 layout_mode = 2

@@ -59,6 +59,10 @@ func _load(data: Dictionary) -> void:
 	if data.has("history"):
 		for row in data["history"]:
 			history.append(row)
+	if data.has("locale"):
+		TranslationServer.set_locale(data.get("locale", "en"))
+	else:
+		TranslationServer.set_locale(OS.get_locale_language())
 	
 func _update_HUD() -> void:
 	$HUD.set_circle_length(circle_length)
@@ -68,6 +72,7 @@ func _update_HUD() -> void:
 	$HUD.set_step(current_step)
 	$HUD.set_circle(current_circle)
 	$HUD.set_save_history(save_history)
+	$HUD.set_language(TranslationServer.get_locale())
 	
 func _save():
 	return {
@@ -78,7 +83,8 @@ func _save():
 		"current_step": current_step,
 		"current_circle": current_circle,
 		"save_history": save_history,
-		"history": history
+		"history": history,
+		"locale": TranslationServer.get_locale()
 	}
 	
 func save_game() -> void:
@@ -222,3 +228,6 @@ func _is_in_the_same_month(entry, now) -> bool:
 
 func _in_in_the_same_year(entry, now) -> bool:
 	return entry["y"] == now["year"]
+
+func _on_language_selected(language: String) -> void:
+	TranslationServer.set_locale(language)

@@ -30,6 +30,7 @@ movie_writer/fps=30
 
 [gui]
 
+theme/custom="uid://nuoxwu7ir08s"
 theme/custom_font="uid://i23su8soclpf"
 
 [input]
@@ -39,6 +40,10 @@ mouse_left={
 "events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":1,"position":Vector2(300, 18),"global_position":Vector2(309, 66),"factor":1.0,"button_index":1,"canceled":false,"pressed":true,"double_click":false,"script":null)
 ]
 }
+
+[internationalization]
+
+locale/translations=PackedStringArray("res://translation.en.translation", "res://translation.ru.translation", "res://translation.bua.translation", "res://translation.bg.translation", "res://translation.bo.translation", "res://translation.cmn.translation", "res://translation.mn.translation", "res://translation.ar.translation", "res://translation.de.translation", "res://translation.es.translation", "res://translation.fr.translation", "res://translation.pt.translation", "res://translation.ja.translation", "res://translation.ko.translation")
 
 [rendering]
 

@@ -27,6 +27,7 @@ stream = ExtResource("5_lquwl")
 
 [connection signal="circle_length_updated" from="HUD" to="." method="_on_hud_circle_length_updated"]
 [connection signal="count_of_circles_updated" from="HUD" to="." method="_on_hud_count_of_circles_updated"]
+[connection signal="language_selected" from="HUD" to="." method="_on_language_selected"]
 [connection signal="request_to_update_history" from="HUD" to="." method="_on_hud_request_to_update_history"]
 [connection signal="reset" from="HUD" to="." method="reset_state"]
 [connection signal="save_history_toggled" from="HUD" to="." method="_on_hud_save_history_toggled"]
