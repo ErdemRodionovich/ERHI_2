@@ -8,11 +8,13 @@ signal reset
 signal save_history_toggled(enabled: bool)
 signal request_to_update_history
 signal language_selected(language: String)
+signal vibrate_on_click_toggled(enabled: bool)
+signal vibrate_on_circle_toggled(enabled: bool)
 
 func _ready() -> void:
 	$TabContainer/AboutScreen/VersionLabel.text = "v. " + ProjectSettings.get_setting("application/config/version")
 	$TabContainer.hide()
-	$TabContainer/MenuScreen/Menu/MenuButton.get_popup().connect("id_pressed", _on_language_selected)
+	$TabContainer/MenuScreen/VBoxContainer/Menu/MenuButton.get_popup().connect("id_pressed", _on_language_selected)
 
 func _check_and_update_circle_length(new_text: String) -> void:
 	var circle_length: int = new_text.to_int()
@@ -22,14 +24,14 @@ func _check_and_update_circle_length(new_text: String) -> void:
 	circle_length_updated.emit(circle_length)
 
 func set_circle_length(circle_length: int) -> void:
-	$TabContainer/MenuScreen/Menu/CircleLengthEdit.text = str(circle_length)
+	$TabContainer/MenuScreen/VBoxContainer/Menu/CircleLengthEdit.text = str(circle_length)
 
 func _on_circle_length_edit_text_submitted(new_text: String) -> void:
 	_check_and_update_circle_length(new_text)
 
 
 func _on_circle_length_edit_editing_toggled(toggled_on: bool) -> void:
-	_check_and_update_circle_length($TabContainer/MenuScreen/Menu/CircleLengthEdit.text)
+	_check_and_update_circle_length($TabContainer/MenuScreen/VBoxContainer/Menu/CircleLengthEdit.text)
 
 
 func _check_and_update_count_of_circles(new_text: String) -> void:
@@ -39,7 +41,7 @@ func _check_and_update_count_of_circles(new_text: String) -> void:
 	count_of_circles_updated.emit(count_of_circles)
 
 func set_count_of_circles(count_of_circles: int) -> void:
-	$TabContainer/MenuScreen/Menu/CountOfCirclesCountEdit.text = str(count_of_circles)
+	$TabContainer/MenuScreen/VBoxContainer/Menu/CountOfCirclesCountEdit.text = str(count_of_circles)
 
 
 func _on_count_of_circles_count_edit_text_submitted(new_text: String) -> void:
@@ -47,7 +49,7 @@ func _on_count_of_circles_count_edit_text_submitted(new_text: String) -> void:
 
 
 func _on_count_of_circles_count_edit_editing_toggled(toggled_on: bool) -> void:
-	_check_and_update_count_of_circles($TabContainer/MenuScreen/Menu/CountOfCirclesCountEdit.text)
+	_check_and_update_count_of_circles($TabContainer/MenuScreen/VBoxContainer/Menu/CountOfCirclesCountEdit.text)
 
 
 func _on_sound_on_click_button_toggled(toggled_on: bool) -> void:
@@ -55,7 +57,7 @@ func _on_sound_on_click_button_toggled(toggled_on: bool) -> void:
 
 
 func set_sound_on_click(enabled: bool) -> void:
-	$TabContainer/MenuScreen/Menu/SoundOnClickButton.set_pressed_no_signal(enabled)
+	$TabContainer/MenuScreen/VBoxContainer/Menu/SoundOnClickButton.set_pressed_no_signal(enabled)
 
 
 func _on_sound_on_circle_button_toggled(toggled_on: bool) -> void:
@@ -63,7 +65,7 @@ func _on_sound_on_circle_button_toggled(toggled_on: bool) -> void:
 
 
 func set_sound_on_circle(enabled: bool) -> void:
-	$TabContainer/MenuScreen/Menu/SoundOnCircleButton.set_pressed_no_signal(enabled)
+	$TabContainer/MenuScreen/VBoxContainer/Menu/SoundOnCircleButton.set_pressed_no_signal(enabled)
 
 
 
@@ -108,7 +110,7 @@ func _on_save_history_button_toggled(toggled_on: bool) -> void:
 	save_history_toggled.emit(toggled_on)
 
 func set_save_history(enabled: bool) -> void:
-	$TabContainer/MenuScreen/Menu/SaveHistoryButton.set_pressed_no_signal(enabled)
+	$TabContainer/MenuScreen/VBoxContainer/Menu/SaveHistoryButton.set_pressed_no_signal(enabled)
 
 
 func _on_history_button_pressed() -> void:
@@ -126,7 +128,7 @@ func set_history(history) -> void:
 func _on_language_selected(index: int) -> void:
 	if index < 0:
 		return
-	$TabContainer/MenuScreen/Menu/MenuButton.text = $TabContainer/MenuScreen/Menu/MenuButton.get_popup().get_item_text(index)
+	$TabContainer/MenuScreen/VBoxContainer/Menu/MenuButton.text = $TabContainer/MenuScreen/VBoxContainer/Menu/MenuButton.get_popup().get_item_text(index)
 	var language: String = "en"
 	if index == 1:
 		language = "ru"
@@ -187,4 +189,17 @@ func set_language(language: String) -> void:
 	elif language == "ja":
 		index = 13
 		
-	$TabContainer/MenuScreen/Menu/MenuButton.text = $TabContainer/MenuScreen/Menu/MenuButton.get_popup().get_item_text(index)
+	$TabContainer/MenuScreen/VBoxContainer/Menu/MenuButton.text = $TabContainer/MenuScreen/VBoxContainer/Menu/MenuButton.get_popup().get_item_text(index)
+
+
+func _on_vibrate_on_click_button_toggled(toggled_on: bool) -> void:
+	vibrate_on_click_toggled.emit(toggled_on)
+
+func set_vibrate_on_click(enabled: bool) -> void:
+	$TabContainer/MenuScreen/VBoxContainer/Menu/VibrateOnClickButton.set_pressed_no_signal(enabled)
+
+func _on_vibrate_on_circle_button_toggled(toggled_on: bool) -> void:
+	vibrate_on_circle_toggled.emit(toggled_on)
+
+func set_vibrate_on_circle(enabled: bool) -> void:
+	$TabContainer/MenuScreen/VBoxContainer/Menu/VibrateOnCircleButton.set_pressed_no_signal(enabled)

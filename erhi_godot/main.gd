@@ -8,6 +8,8 @@ var current_step: int = 0
 var current_circle: int = 0
 var save_history: bool = false
 var history: Array[Dictionary]
+var vibrate_on_click: bool = false
+var vibrate_on_circle: bool = false
 
 func _ready() -> void:
 	load_game()
@@ -27,10 +29,14 @@ func _input(event: InputEvent) -> void:
 			$HUD.set_circle(current_circle)
 			if sound_on_circle:
 				$SoundOnCircle.play()
+			if vibrate_on_circle:
+				Input.vibrate_handheld()
 		_save_step_in_history(circle_finished)
 		$HUD.set_step(current_step)
 		if sound_on_click:
 			$SoundOnClick.play()
+		if vibrate_on_click:
+			Input.vibrate_handheld()
 
 func _save_game_filepath() -> String:
 	return "user://erhi.save"
@@ -63,6 +69,8 @@ func _load(data: Dictionary) -> void:
 		TranslationServer.set_locale(data.get("locale", "en"))
 	else:
 		TranslationServer.set_locale(OS.get_locale_language())
+	vibrate_on_click = data.get("vibrate_on_click", vibrate_on_click)
+	vibrate_on_circle = data.get("vibrate_on_circle", vibrate_on_circle)
 	
 func _update_HUD() -> void:
 	$HUD.set_circle_length(circle_length)
@@ -73,6 +81,8 @@ func _update_HUD() -> void:
 	$HUD.set_circle(current_circle)
 	$HUD.set_save_history(save_history)
 	$HUD.set_language(TranslationServer.get_locale())
+	$HUD.set_vibrate_on_click(vibrate_on_click)
+	$HUD.set_vibrate_on_circle(vibrate_on_circle)
 	
 func _save():
 	return {
@@ -84,7 +94,9 @@ func _save():
 		"current_circle": current_circle,
 		"save_history": save_history,
 		"history": history,
-		"locale": TranslationServer.get_locale()
+		"locale": TranslationServer.get_locale(),
+		"vibrate_on_click": vibrate_on_click,
+		"vibrate_on_circle": vibrate_on_circle
 	}
 	
 func save_game() -> void:
@@ -231,3 +243,11 @@ func _in_in_the_same_year(entry, now) -> bool:
 
 func _on_language_selected(language: String) -> void:
 	TranslationServer.set_locale(language)
+
+
+func _on_hud_vibrate_on_circle_toggled(enabled: bool) -> void:
+	vibrate_on_circle = enabled
+
+
+func _on_hud_vibrate_on_click_toggled(enabled: bool) -> void:
+	vibrate_on_click = enabled

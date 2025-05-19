@@ -1,10 +1,26 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://nuoxwu7ir08s"]
+[gd_resource type="Theme" load_steps=10 format=3 uid="uid://nuoxwu7ir08s"]
 
+[ext_resource type="Texture2D" uid="uid://cwbx071c1jc1k" path="res://Icons/CheckButton/checked_normal.png" id="1_7olnx"]
 [ext_resource type="FontFile" uid="uid://i23su8soclpf" path="res://Font/Noto_Sans/static/NotoSans-Bold.ttf" id="1_ytbe2"]
+[ext_resource type="Texture2D" uid="uid://dpssdgkune5fp" path="res://Icons/CheckButton/checked_disabled.png" id="2_bhjxj"]
+[ext_resource type="Texture2D" uid="uid://bhxy5si1us5mb" path="res://Icons/CheckButton/checked_disabled_mirrored.png" id="3_ubthk"]
+[ext_resource type="Texture2D" uid="uid://buj7tfhvlghl2" path="res://Icons/CheckButton/checked_mirrored.png" id="4_3jx84"]
+[ext_resource type="Texture2D" uid="uid://ccsyisww00ive" path="res://Icons/CheckButton/unchecked.png" id="5_klqip"]
+[ext_resource type="Texture2D" uid="uid://mksekuxs03jm" path="res://Icons/CheckButton/unchecked_disabled.png" id="6_6xaq2"]
+[ext_resource type="Texture2D" uid="uid://dxvdia0gkwye3" path="res://Icons/CheckButton/unchecked_disabled_mirrored.png" id="7_dbn4j"]
+[ext_resource type="Texture2D" uid="uid://yktgpuvj2nn1" path="res://Icons/CheckButton/unchecked_mirrored.png" id="8_wj1dk"]
 
 [resource]
 default_font = ExtResource("1_ytbe2")
 default_font_size = 40
+CheckButton/icons/checked = ExtResource("1_7olnx")
+CheckButton/icons/checked_disabled = ExtResource("2_bhjxj")
+CheckButton/icons/checked_disabled_mirrored = ExtResource("3_ubthk")
+CheckButton/icons/checked_mirrored = ExtResource("4_3jx84")
+CheckButton/icons/unchecked = ExtResource("5_klqip")
+CheckButton/icons/unchecked_disabled = ExtResource("6_6xaq2")
+CheckButton/icons/unchecked_disabled_mirrored = ExtResource("7_dbn4j")
+CheckButton/icons/unchecked_mirrored = ExtResource("8_wj1dk")
 PopupMenu/colors/font_accelerator_color = Color(0, 0, 0, 1)
 PopupMenu/colors/font_color = Color(0, 0, 0, 1)
 PopupMenu/colors/font_disabled_color = Color(0, 0, 0, 1)

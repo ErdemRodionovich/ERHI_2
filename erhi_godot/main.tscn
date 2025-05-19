@@ -33,3 +33,5 @@ stream = ExtResource("5_lquwl")
 [connection signal="save_history_toggled" from="HUD" to="." method="_on_hud_save_history_toggled"]
 [connection signal="sound_on_circle_toggled" from="HUD" to="." method="_on_hud_sound_on_circle_toggled"]
 [connection signal="sound_on_click_toggled" from="HUD" to="." method="_on_hud_sound_on_click_toggled"]
+[connection signal="vibrate_on_circle_toggled" from="HUD" to="." method="_on_hud_vibrate_on_circle_toggled"]
+[connection signal="vibrate_on_click_toggled" from="HUD" to="." method="_on_hud_vibrate_on_click_toggled"]

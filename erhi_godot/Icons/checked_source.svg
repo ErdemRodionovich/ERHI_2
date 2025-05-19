@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4.1 (1:1.4.1+202503302257+93de688d07)"
+   sodipodi:docname="checked_source.svg"
+   inkscape:export-filename="checked.svg"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="4.0466586"
+     inkscape:cx="118.49282"
+     inkscape:cy="99.711896"
+     inkscape:window-width="1884"
+     inkscape:window-height="1011"
+     inkscape:window-x="36"
+     inkscape:window-y="32"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Слой 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g3"
+       transform="translate(-0.1648531)"
+       inkscape:export-filename="CheckButton/unchecked.png"
+       inkscape:export-xdpi="501.78568"
+       inkscape:export-ydpi="501.78568">
+      <rect
+         style="opacity:0.977841;fill:#332421;fill-opacity:1;stroke-width:0.475001"
+         id="rect1-3"
+         width="6.2767835"
+         height="3.0076253"
+         x="8.402853"
+         y="12.191182"
+         ry="1.5038127"
+         inkscape:export-filename="unchecked.svg"
+         inkscape:export-xdpi="168.90404"
+         inkscape:export-ydpi="168.90404" />
+      <ellipse
+         style="opacity:0.977841;fill:#f46d4d;fill-opacity:1;stroke-width:0.475001"
+         id="path1-5"
+         cx="9.9370499"
+         cy="13.694995"
+         rx="1.0460188"
+         ry="0.99400681" />
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-weight:500;font-size:3.88056px;line-height:1.25;font-family:Tuffy;-inkscape-font-specification:'Tuffy Medium';text-orientation:upright;stroke-width:0.264583"
+       x="16.901546"
+       y="10.820913"
+       id="text1"><tspan
+         sodipodi:role="line"
+         id="tspan1"
+         style="stroke-width:0.264583"
+         x="16.901546"
+         y="10.820913">checked</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-weight:500;font-size:3.88056px;line-height:1.25;font-family:Tuffy;-inkscape-font-specification:'Tuffy Medium';text-orientation:upright;stroke-width:0.264583"
+       x="17.028639"
+       y="15.106648"
+       id="text1-2"><tspan
+         sodipodi:role="line"
+         id="tspan1-7"
+         style="stroke-width:0.264583"
+         x="17.028639"
+         y="15.106648">unchecked</tspan></text>
+    <g
+       id="g4"
+       inkscape:export-filename="CheckButton/checked_disabled.png"
+       inkscape:export-xdpi="501.78568"
+       inkscape:export-ydpi="501.78568">
+      <rect
+         style="opacity:0.977841;fill:#c9a097;fill-opacity:1;stroke-width:0.475001"
+         id="rect1-0"
+         width="6.2767835"
+         height="3.0076253"
+         x="8.2379999"
+         y="17.370258"
+         ry="1.5038127"
+         inkscape:export-filename="checked_disabled.svg"
+         inkscape:export-xdpi="168.90404"
+         inkscape:export-ydpi="168.90404" />
+      <rect
+         style="opacity:0.977841;fill:#ca7562;fill-opacity:1;stroke-width:0.441668"
+         id="rect2-6"
+         width="4.6010146"
+         height="1.6379608"
+         x="8.9770002"
+         y="18.055092"
+         ry="0.8189804" />
+      <ellipse
+         style="opacity:0.977841;fill:#f46d4d;fill-opacity:1;stroke-width:0.475001"
+         id="path1-6"
+         cx="12.986019"
+         cy="18.874071"
+         rx="1.0460188"
+         ry="0.99400681" />
+    </g>
+    <g
+       id="g5"
+       transform="translate(-0.16873074)"
+       inkscape:export-filename="CheckButton/unchecked_disabled.png"
+       inkscape:export-xdpi="501.78568"
+       inkscape:export-ydpi="501.78568">
+      <rect
+         style="opacity:0.977841;fill:#c9a097;fill-opacity:1;stroke-width:0.475001"
+         id="rect1-3-2"
+         width="6.2767835"
+         height="3.0076253"
+         x="8.4067307"
+         y="21.539202"
+         ry="1.5038127"
+         inkscape:export-filename="unchecked_disabled.svg"
+         inkscape:export-xdpi="168.90404"
+         inkscape:export-ydpi="168.90404" />
+      <ellipse
+         style="opacity:0.977841;fill:#f46d4d;fill-opacity:1;stroke-width:0.475001"
+         id="path1-5-6"
+         cx="9.9409275"
+         cy="23.043015"
+         rx="1.0460188"
+         ry="0.99400681" />
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-weight:500;font-size:3.88056px;line-height:1.25;font-family:Tuffy;-inkscape-font-specification:'Tuffy Medium';text-orientation:upright;stroke-width:0.264583"
+       x="16.905424"
+       y="20.168934"
+       id="text1-1"><tspan
+         sodipodi:role="line"
+         id="tspan1-8"
+         style="stroke-width:0.264583"
+         x="16.905424"
+         y="20.168934">checked disabled</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-weight:500;font-size:3.88056px;line-height:1.25;font-family:Tuffy;-inkscape-font-specification:'Tuffy Medium';text-orientation:upright;stroke-width:0.264583"
+       x="17.032516"
+       y="24.454668"
+       id="text1-2-7"><tspan
+         sodipodi:role="line"
+         id="tspan1-7-9"
+         style="stroke-width:0.264583"
+         x="17.032516"
+         y="24.454668">unchecked disabled</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-weight:500;font-size:3.88056px;line-height:1.25;font-family:Tuffy;-inkscape-font-specification:'Tuffy Medium';text-orientation:upright;stroke-width:0.264583"
+       x="16.971752"
+       y="31.361204"
+       id="text1-9"><tspan
+         sodipodi:role="line"
+         id="tspan1-73"
+         style="stroke-width:0.264583"
+         x="16.971752"
+         y="31.361204">checked mirrored</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-weight:500;font-size:3.88056px;line-height:1.25;font-family:Tuffy;-inkscape-font-specification:'Tuffy Medium';text-orientation:upright;stroke-width:0.264583"
+       x="17.098845"
+       y="35.646942"
+       id="text1-2-6"><tspan
+         sodipodi:role="line"
+         id="tspan1-7-1"
+         style="stroke-width:0.264583"
+         x="17.098845"
+         y="35.646942">unchecked mirrored</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-weight:500;font-size:3.88056px;line-height:1.25;font-family:Tuffy;-inkscape-font-specification:'Tuffy Medium';text-orientation:upright;stroke-width:0.264583"
+       x="16.97563"
+       y="40.709225"
+       id="text1-1-9"><tspan
+         sodipodi:role="line"
+         id="tspan1-8-4"
+         style="stroke-width:0.264583"
+         x="16.97563"
+         y="40.709225">checked disabled mirrored</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-weight:500;font-size:3.88056px;line-height:1.25;font-family:Tuffy;-inkscape-font-specification:'Tuffy Medium';text-orientation:upright;stroke-width:0.264583"
+       x="17.102722"
+       y="44.994961"
+       id="text1-2-7-7"><tspan
+         sodipodi:role="line"
+         id="tspan1-7-9-8"
+         style="stroke-width:0.264583"
+         x="17.102722"
+         y="44.994961">unchecked disabled mirrored</tspan></text>
+    <g
+       id="g2"
+       transform="translate(-2.7847712e-4)"
+       inkscape:export-filename="CheckButton/checked_normal.png"
+       inkscape:export-xdpi="501.78568"
+       inkscape:export-ydpi="501.78568">
+      <rect
+         style="opacity:0.977841;fill:#332421;fill-opacity:1;stroke-width:0.475001"
+         id="rect1"
+         width="6.2767835"
+         height="3.0076253"
+         x="8.2382784"
+         y="7.9767456"
+         ry="1.5038127"
+         inkscape:export-filename="checked.svg"
+         inkscape:export-xdpi="168.90404"
+         inkscape:export-ydpi="168.90404" />
+      <rect
+         style="opacity:0.977841;fill:#ca7562;fill-opacity:1;stroke-width:0.441668"
+         id="rect2"
+         width="4.6010146"
+         height="1.6379608"
+         x="8.9774332"
+         y="8.6615782"
+         ry="0.8189804" />
+      <ellipse
+         style="opacity:0.977841;fill:#f46d4d;fill-opacity:1;stroke-width:0.475001"
+         id="path1"
+         cx="12.98566"
+         cy="9.4805584"
+         rx="1.0460188"
+         ry="0.99400681" />
+    </g>
+    <g
+       id="g3-6"
+       transform="matrix(-1,0,0,1,22.917636,20.734709)"
+       inkscape:export-filename="CheckButton/unchecked_mirrored.png"
+       inkscape:export-xdpi="501.78561"
+       inkscape:export-ydpi="501.78561">
+      <rect
+         style="opacity:0.977841;fill:#332421;fill-opacity:1;stroke-width:0.475001"
+         id="rect1-3-5"
+         width="6.2767835"
+         height="3.0076253"
+         x="8.402853"
+         y="12.191182"
+         ry="1.5038127"
+         inkscape:export-filename="unchecked.svg"
+         inkscape:export-xdpi="168.90404"
+         inkscape:export-ydpi="168.90404" />
+      <ellipse
+         style="opacity:0.977841;fill:#f46d4d;fill-opacity:1;stroke-width:0.475001"
+         id="path1-5-69"
+         cx="9.9370499"
+         cy="13.694995"
+         rx="1.0460188"
+         ry="0.99400681" />
+    </g>
+    <g
+       id="g4-3"
+       transform="matrix(-1,0,0,1,22.752783,20.734709)"
+       inkscape:export-filename="CheckButton/checked_disabled_mirrored.png"
+       inkscape:export-xdpi="501.78561"
+       inkscape:export-ydpi="501.78561">
+      <rect
+         style="opacity:0.977841;fill:#c9a097;fill-opacity:1;stroke-width:0.475001"
+         id="rect1-0-7"
+         width="6.2767835"
+         height="3.0076253"
+         x="8.2379999"
+         y="17.370258"
+         ry="1.5038127"
+         inkscape:export-filename="checked_disabled.svg"
+         inkscape:export-xdpi="168.90404"
+         inkscape:export-ydpi="168.90404" />
+      <rect
+         style="opacity:0.977841;fill:#ca7562;fill-opacity:1;stroke-width:0.441668"
+         id="rect2-6-4"
+         width="4.6010146"
+         height="1.6379608"
+         x="8.9770002"
+         y="18.055092"
+         ry="0.8189804" />
+      <ellipse
+         style="opacity:0.977841;fill:#f46d4d;fill-opacity:1;stroke-width:0.475001"
+         id="path1-6-5"
+         cx="12.986019"
+         cy="18.874071"
+         rx="1.0460188"
+         ry="0.99400681" />
+    </g>
+    <g
+       id="g5-2"
+       transform="matrix(-1,0,0,1,22.921514,20.734709)"
+       inkscape:export-filename="CheckButton/unchecked_disabled_mirrored.png"
+       inkscape:export-xdpi="501.78568"
+       inkscape:export-ydpi="501.78568">
+      <rect
+         style="opacity:0.977841;fill:#c9a097;fill-opacity:1;stroke-width:0.475001"
+         id="rect1-3-2-5"
+         width="6.2767835"
+         height="3.0076253"
+         x="8.4067307"
+         y="21.539202"
+         ry="1.5038127"
+         inkscape:export-filename="unchecked_disabled.svg"
+         inkscape:export-xdpi="168.90404"
+         inkscape:export-ydpi="168.90404" />
+      <ellipse
+         style="opacity:0.977841;fill:#f46d4d;fill-opacity:1;stroke-width:0.475001"
+         id="path1-5-6-4"
+         cx="9.9409275"
+         cy="23.043015"
+         rx="1.0460188"
+         ry="0.99400681" />
+    </g>
+    <g
+       id="g2-7"
+       transform="matrix(-1,0,0,1,22.753062,20.734709)"
+       inkscape:export-filename="CheckButton/checked_mirrored.png"
+       inkscape:export-xdpi="501.78568"
+       inkscape:export-ydpi="501.78568">
+      <rect
+         style="opacity:0.977841;fill:#332421;fill-opacity:1;stroke-width:0.475001"
+         id="rect1-4"
+         width="6.2767835"
+         height="3.0076253"
+         x="8.2382784"
+         y="7.9767456"
+         ry="1.5038127"
+         inkscape:export-filename="checked.svg"
+         inkscape:export-xdpi="168.90404"
+         inkscape:export-ydpi="168.90404" />
+      <rect
+         style="opacity:0.977841;fill:#ca7562;fill-opacity:1;stroke-width:0.441668"
+         id="rect2-4"
+         width="4.6010146"
+         height="1.6379608"
+         x="8.9774332"
+         y="8.6615782"
+         ry="0.8189804" />
+      <ellipse
+         style="opacity:0.977841;fill:#f46d4d;fill-opacity:1;stroke-width:0.475001"
+         id="path1-3"
+         cx="12.98566"
+         cy="9.4805584"
+         rx="1.0460188"
+         ry="0.99400681" />
+    </g>
+  </g>
+</svg>
