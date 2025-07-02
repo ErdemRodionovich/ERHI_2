@@ -1,0 +1,17 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://dhy1nlos0nrle"
+
+[deps]
+
+files=["res://phrases_for_translate.Length of a circle.translation"]
+
+source_file="res://phrases_for_translate.csv"
+dest_files=["res://phrases_for_translate.Length of a circle.translation"]
+
+[params]
+
+compress=true
+delimiter=0
